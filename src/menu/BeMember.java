@@ -19,9 +19,9 @@ public class BeMember {
 
 	        try {
 	            
-	            con = DriverManager.getConnection("jdbc:postgresql://localhost/KanBul", "postgres",
-						"Aybike_95");
-	            pst = con.prepareStatement("SELECT * FROM \"kan_arayan\"");
+	            con = DriverManager.getConnection("jdbc:postgresql://localhost/KANBUL", "postgres",
+						"123456");
+	            pst = con.prepareStatement("SELECT * FROM \"KAN_ARAYAN\"");
 		         rs = pst.executeQuery();
 		     
 		         
