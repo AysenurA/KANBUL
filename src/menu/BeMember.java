@@ -16,7 +16,7 @@ public class BeMember {
 			Connection con = null;
 	        PreparedStatement pst = null;
 	        ResultSet rs = null;
-
+	        ResultSet rss = null;
 	        try {
 	            
 	            con = DriverManager.getConnection("jdbc:postgresql://localhost/KANBUL", "postgres",
