@@ -1,4 +1,4 @@
-package sqlTables;
+package sqlTable;
 
 public class KanArayan {
 private String _TELEPHONE;
