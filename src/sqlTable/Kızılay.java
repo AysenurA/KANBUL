@@ -83,7 +83,7 @@ public static void InsertHospital(String hname) throws SQLException {
 }
 
 public static void main(String[]args) throws SQLException {
-	InsertHospital("ays hastanesi");
+//	InsertHospital("Istanbul hastanesi");
 }
          
 }
