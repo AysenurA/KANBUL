@@ -6,6 +6,10 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/Desktop/postgresql-42.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/postgresql-42.1.4.jre7.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

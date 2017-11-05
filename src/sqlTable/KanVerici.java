@@ -3,19 +3,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class KanVerici {
 
 	        private int _flag ;
-	 		private String _TELEPHONE;  
 	 		private int _age; 
 	 		private int _raport;
 	 		
 	 		private char _sex;
 	 		
-	 		 
+	 		private String _TELEPHONE;  
 	 		private String _EMAIL;
 	 		private String _fname;
             private String _mname;
@@ -27,17 +27,25 @@ public class KanVerici {
             private String _city ;
             private String _town;
             private String _bloodTypeNum ;
+            
             public Connection con = null;
         	public PreparedStatement pst = null;
   	        public ResultSet rs = null;
   	        public Statement stmt = null;
+  	        public  ResultSetMetaData metadata =null ;
+  	        
   	        public String sql=null;
+  	        
+  	        public int columnCount;
+  	        
+  	       
+  	        
+  	        
   	        public KanVerici() {
   	        	
+  	        	
   	        }
-  	      
-            
-             
+  	        
             // if(flag 1) DONOR
             public KanVerici( int flag,String telephone,String email,String fname,
     		String mname,String lname,String pass,
@@ -56,7 +64,7 @@ public class KanVerici {
             	_raport =raport;
             	_sex=sex;
             	_age = age;
-            	System.out.println(flag);
+            	//System.out.println(flag);
             	Insert(_flag);
             	
             }
@@ -104,8 +112,8 @@ public class KanVerici {
 				try {
 
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KANBUL", "postgres",
-							"123456");
+							"jdbc:postgresql://localhost/KanBul", "postgres",
+							"Aybike_95");
 					
 				} catch (SQLException e) {
 
@@ -122,7 +130,7 @@ public class KanVerici {
             	
             	
             }
-            private boolean Exist(String _TELEPHONE,String _EMAIL) throws SQLException {
+            public boolean Exist(String _TELEPHONE,String _EMAIL) throws SQLException {
             	
             	Connection ();
             	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE telephone='"+_TELEPHONE+"' and email='"+_EMAIL+"'");
@@ -138,6 +146,39 @@ public class KanVerici {
 		                else 
 		                	return true;
 
+            }
+            
+            public void SearchBlood(String BloodType) throws SQLException {
+	           
+            	Connection ();
+            	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE bloodtype like '%"+BloodType+"%'");
+		        rs = pst.executeQuery();
+		        metadata = rs.getMetaData();
+                columnCount = metadata.getColumnCount();
+                String row = "";
+                while(rs.next()) {
+                	
+                for (int i = 2; i <= columnCount; i++) {
+                	if( i!=3 && i!=7 && i!=8 && i!=12) {
+                		if(rs.getString(i)!=null  )
+                			System.out.print(rs.getString(i)+" ");
+                		if(i==columnCount)
+                		System.out.println();
+		            }
+                }
+                }
+  }
+            
+            
+            public void Delete(String _TELEPHONE,String _EMAIL) throws SQLException {
+           
+            	Connection();
+            	if(Exist(_TELEPHONE, _EMAIL)) {
+            	stmt = con.createStatement();
+		        stmt.executeUpdate("DELETE FROM \"kan_verici\" WHERE telephone='"+_TELEPHONE+"' and email='"+_EMAIL+"'");
+            	}
+            	else 
+            		System.out.println("there is no person to (Delete)");
             }
             
             private void Insert(int flag) throws SQLException {
@@ -188,14 +229,7 @@ public class KanVerici {
             
 			public static void main(String [] args) throws SQLException {
                
-		 // REMARK! :Sql le baðladýðýn her class da olmak zorunda !!
-				
-			/*( int flag,String telephone,String email,String fname,
-    		String mname,String lname,String pass,
- 		   String bloodType,String town,String city,int raport,char sex,int age)
-	          */
-				
-				
+		 // REMARK! :Sql le baðladýðýn her class da olmak zorunda !!		
 		/* YORUM SATIRINI AÇMAYINIZ
 				KanVerici person = new KanVerici (1,"5076031496","asuman@gmail.com","Asuman","Rana","Acartürk","asuman123"
 						,"ABRh+","Çankaya","Ankara",1,'F',21);
@@ -203,8 +237,11 @@ public class KanVerici {
 						,"0Rh+ 0Rh- ARh+ ARh- BRh+ BRh- ABRh+ ABRh-","Çankaya","Ankara","21 45 3 4 0 41 3 4");
 						KanVerici person = new KanVerici (3,"3122126666","kizilaymeydan@gmail.com","Kýzýlay Meydan KAB","kizilay123"
 						,"0Rh+ 0Rh- ARh+ ARh- BRh+ BRh- ABRh+ ABRh-","Kýzýlay","Ankara","06ET653","1 5 3 4 0 1 3 4","Atatürk Bulvarý Kýzýlay AVM Önü" );
+	        KanVerici person = new KanVerici ();
+				person.SearchBlood("0Rh+");
+				person.Delete("3122126666", "kizilaymeydan@gmail.com");
 	        */
-				//Kýzýlay Meydan KAB Adres : Atatürk Bulvarý Kýzýlay AVM Önü Kýzýlay/Çankaya/ANKARA
-				
+			
+
 			}
 }
