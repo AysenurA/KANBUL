@@ -6,7 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/*
+To do list :
+* Update methods
+*Change the '' for query. 
+*/
 			public class KanArayan {
 			private String _TELEPHONE;
 			private String _fname;
@@ -18,6 +22,7 @@ import java.sql.Statement;
 			public  Connection con = null;
 			public  PreparedStatement pst = null;
 			public  ResultSet rs = null;
+			public KanVerici person=null;
 			
 			public KanArayan(String tel,String fname,String mname,String lname,String bloodT,String hospitalC,String hospitalT) {
 				
@@ -79,7 +84,7 @@ import java.sql.Statement;
 				}
 			}
 			
-			public  String Search(String tel) throws SQLException {
+			public  String Exist(String tel) throws SQLException {
 				Connection();
 			    String s=null;
 			        pst = con.prepareStatement("SELECT * FROM \"kan_arayan\" WHERE telephone='"+tel+"'");
@@ -91,9 +96,9 @@ import java.sql.Statement;
 			   return s;
 			}
 			
-			private void Insert(String tel) throws SQLException {
+			private void Insert(String tel,String fname,String mname,String lname,String bloodT,String hospitalC,String hospitalT) throws SQLException {
 				Connection();
-			    String s=Search(tel);
+			    String s=Exist(tel);
 				if(s!=null) {
 					System.out.println("The person is already exist");
 				}
@@ -104,11 +109,23 @@ import java.sql.Statement;
 				                "VALUES ('"+tel+"'"+", 'Aysenur','Nur','Avcý','0Rh+','yenimahalle', 'Ankara')"); 
 				  
 				    }
+				
+				/* If s/he want to be member 
+				 * person = new KanVerici(String tel,String fname,String mname,String lname,String bloodT); 
+				 * 
+				 */
+			}
+			public void Search(String BloodType) throws SQLException {
+				
+				Connection();
+				person = new KanVerici();
+				person.SearchBlood(BloodType);
+				
 			}
 			
 			public void Delete(String tel) throws SQLException {
 				Connection();
-				String s=Search(tel);
+				String s=Exist(tel);
 				if(s==null) {
 					System.out.println("The person is not exist");
 				}

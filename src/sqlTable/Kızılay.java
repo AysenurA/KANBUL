@@ -8,6 +8,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+/*
+ To do list :
+ * Update / Delete methods
+ *Change the '' for query. 
+ */
+
+
+
+
+
 
 				public class Kýzýlay {
 				private String _hospitalName;
@@ -19,11 +29,12 @@ import java.util.logging.Logger;
 				public ResultSet rs = null;
 						
 						
-			   public Kýzýlay(String hospitalN,String hospitalP,String hospitalT,String hospitalC) {
+			   public Kýzýlay(String hospitalN,String hospitalP,String hospitalT,String hospitalC) throws SQLException {
 						this._hospitalName=hospitalN;
 						this._hospitalPassword=hospitalP;
 						this._hospitalTown=hospitalT;
 						this._hospitalCity=hospitalC;
+						Insert(hospitalN,hospitalP,hospitalT,hospitalC);
 					}
 				public String get_hospitalName() {
 					return _hospitalName;
@@ -68,9 +79,9 @@ import java.util.logging.Logger;
 				   return s;
 				}
 				
-				public  void InsertHospital(String hname) throws SQLException {
+				public  void Insert(String hospitalN,String hospitalP,String hospitalT,String hospitalC) throws SQLException {
 					Connection();
-				    String s=Search(hname);
+				    String s=Search(hospitalN);
 					if(s!=null) {
 						System.out.println("The hospital is already exist");
 					}
@@ -78,10 +89,11 @@ import java.util.logging.Logger;
 					{		          
 						Statement st = con.createStatement(); 
 						st.executeUpdate("INSERT INTO kizilay " + 
-					                "VALUES ('"+hname+"'"+", '12345', 'yenimahalle', 'Ankara')"); 
+					                "VALUES ('"+hospitalN+"'"+", '12345', 'yenimahalle', 'Ankara')"); 
 					  
 					    }
 				}
+				
 				
 				public static void main(String[]args) throws SQLException {
 				//	InsertHospital("Istanbul hastanesi");
