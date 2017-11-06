@@ -15,38 +15,44 @@ import java.util.logging.Logger;
  */
 
 
-
-
-
-
 				public class Kýzýlay {
-				private String _hospitalName;
-				private String _hospitalPassword;
-				private String _hospitalTown;
-				private String _hospitalCity;
+				private String _name;
+				private String _password;
+				private String _town;
+				private String _city;
+				private String _EMAIL;
+				private String _address;
 				public  Connection con = null;
 				public  PreparedStatement pst = null;
 				public ResultSet rs = null;
 						
 						
-			   public Kýzýlay(String hospitalN,String hospitalP,String hospitalT,String hospitalC) throws SQLException {
-						this._hospitalName=hospitalN;
-						this._hospitalPassword=hospitalP;
-						this._hospitalTown=hospitalT;
-						this._hospitalCity=hospitalC;
-						Insert(hospitalN,hospitalP,hospitalT,hospitalC);
+			   public Kýzýlay(String name,String password,String town,String city,String email,String address) throws SQLException {
+						this._name=name;
+						this._password=password;
+						this._town=town;
+						this._city=city;
+						this._EMAIL=email;
+						this._address=address;
+						Insert(name,password,town,city,email,address);
 					}
-				public String get_hospitalName() {
-					return _hospitalName;
+				public String get_name() {
+					return _name;
 				}
-				public String get_hospitalPassword() {
-					return _hospitalPassword;
+				public String get_password() {
+					return _password;
 				}
-				public String get_hospitalTown() {
-					return _hospitalTown;
+				public String get_town() {
+					return _town;
 				}
-				public String get_hospitalCity() {
-					return _hospitalCity;
+				public String get_city() {
+					return _city;
+				}
+				public String get_EMAIL() {
+					return _EMAIL;
+				}
+				public String get_address() {
+					return _address;
 				}
 				private void Connection() {
 					try {
@@ -67,10 +73,10 @@ import java.util.logging.Logger;
 					}
 				}
 				
-				public String Search(String hname) throws SQLException {
+				public String Search(String email) throws SQLException {
 					Connection();
 				    String s=null;
-				        pst = con.prepareStatement("SELECT * FROM \"kizilay\" WHERE hospitalname='"+hname+"'");
+				        pst = con.prepareStatement("SELECT * FROM \"kizilay\" WHERE email='"+email+"'");
 				        rs = pst.executeQuery();
 				        while (rs.next()) {
 				        	s=rs.getString(1);
@@ -79,9 +85,9 @@ import java.util.logging.Logger;
 				   return s;
 				}
 				
-				public  void Insert(String hospitalN,String hospitalP,String hospitalT,String hospitalC) throws SQLException {
+				public  void Insert(String name,String password,String town,String city,String email,String address) throws SQLException {
 					Connection();
-				    String s=Search(hospitalN);
+				    String s=Search(email);
 					if(s!=null) {
 						System.out.println("The hospital is already exist");
 					}
@@ -89,7 +95,7 @@ import java.util.logging.Logger;
 					{		          
 						Statement st = con.createStatement(); 
 						st.executeUpdate("INSERT INTO kizilay " + 
-					                "VALUES ('"+hospitalN+"'"+", '12345', 'yenimahalle', 'Ankara')"); 
+					                "VALUES ('"+email+"'"+", '12345', 'yenimahalle', 'Ankara')"); 
 					  
 					    }
 				}
