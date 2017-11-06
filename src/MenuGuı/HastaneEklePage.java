@@ -3,6 +3,7 @@ package MenuGuý;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import sqlTable.KanVerici;
+import sqlTable.Kýzýlay;
 
 public class HastaneEklePage {
 
@@ -19,6 +23,8 @@ public class HastaneEklePage {
 	private JTextField HastaneEmailEkle_textField;
 	private JTextField UniteSayisi_textField;
 	private JTextField HastaneAdresEkle_textField;
+	public Kýzýlay hastane = new Kýzýlay();
+	private JTextField Ad_textField;
 
 	/**
 	 * Launch the application.
@@ -59,10 +65,6 @@ public class HastaneEklePage {
 		JLabel HastaneAdresiIlIlceEkle_Label = new JLabel("Hastane Adresi-Ýl Ýlçe Ekle:");
 		HastaneAdresiIlIlceEkle_Label.setBounds(52, 38, 134, 14);
 		frame.getContentPane().add(HastaneAdresiIlIlceEkle_Label);
-		
-		JComboBox<String> HastaneAdiEkle_List = new JComboBox<String>();
-		HastaneAdiEkle_List.setBounds(199, 9, 113, 20);
-		frame.getContentPane().add(HastaneAdiEkle_List);
 		
 		JComboBox<String> HastaneAdresiIlEkle_List = new JComboBox<String>();
 		HastaneAdresiIlEkle_List.setBounds(199, 35, 113, 20);
@@ -180,11 +182,11 @@ public class HastaneEklePage {
 			public void actionPerformed(ActionEvent e) {
 				
 				int flagNum = 2;
-				int telephone = Integer.parseInt(HastaneTelEkle_textField.toString());
-				String email = HastaneEmailEkle_textField.toString();
-				String fname = HastaneAdiEkle_List.getSelectedItem().toString();
+				String telephone =HastaneTelEkle_textField.getText().toString();
+				String email = HastaneEmailEkle_textField.getText().toString();
+				String fname = Ad_textField.getText().toString();
 				// mname
-				String userPassword = HastaneSifreEkle_textField.toString();
+				String userPassword = HastaneSifreEkle_textField.getText().toString();
 				// sex
 				// age
 				String city = HastaneAdresiIlEkle_List.getSelectedItem().toString();
@@ -200,8 +202,25 @@ public class HastaneEklePage {
 				if(ABPos_RadioButton.isSelected()) bloodType += "ABRh+ ";  
 				if(ABNeg_RadioButton.isSelected()) bloodType += "ABRh- ";  
 				// plaka
-				String bloodTypeNum = UniteSayisi_textField.toString();
-				String address = HastaneAdresEkle_textField.toString();
+				String bloodTypeNum = UniteSayisi_textField.getText().toString();
+				String address = HastaneAdresEkle_textField.getText().toString();
+				
+				System.out.println(flagNum+" "+telephone+" "+email+" "+fname+" "+userPassword+" "+bloodType+" "+town+" "+city+" "+bloodTypeNum+" "+address);
+				
+				
+				try {
+				//	Insert(flagNum,telephone,email,fname,userPassword,bloodType,town,city,bloodTypeNum,address);
+					   hastane.Insert(fname,userPassword,town,city,email,address,bloodType, bloodTypeNum);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					System.out.println(" From E1");
+					//e1.printStackTrace();
+				}
+				/*
+				 *   public KanVerici ( int flag,String telephone,String email,String fname,String pass,
+      		   String bloodType,String town,String city,String bloodTypeNum) throws SQLException {
+				 */
+				
 				
 				// Zaten aynýsý var mý ?INSERT edilecek kan verici tablosuna
 				// getText().toString() olabilir emin deðilim
@@ -222,5 +241,16 @@ public class HastaneEklePage {
 		});
 		Geri_Button.setBounds(10, 266, 89, 23);
 		frame.getContentPane().add(Geri_Button);
+		
+		Ad_textField = new JTextField();
+		Ad_textField.setBounds(199, 9, 239, 20);
+		frame.getContentPane().add(Ad_textField);
+		Ad_textField.setColumns(10);
+	}
+	
+	public void Insert( int flag,String telephone,String email,String fname,String pass,
+   		   String bloodType,String town,String city,String bloodTypeNum,String address) throws SQLException {
+		   hastane = new Kýzýlay(fname,pass,town,city,email,address,bloodType, bloodTypeNum);
+		
 	}
 }

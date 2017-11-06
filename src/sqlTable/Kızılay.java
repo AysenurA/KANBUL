@@ -26,15 +26,17 @@ import java.util.logging.Logger;
 				public  PreparedStatement pst = null;
 				public ResultSet rs = null;
 						
-						
-			   public Kýzýlay(String name,String password,String town,String city,String email,String address) throws SQLException {
+			   public Kýzýlay() {
+				   
+			   }
+			   public Kýzýlay(String name,String password,String town,String city,String email,String address,String bloodType,String bloodTypeNum) throws SQLException {
 						this._name=name;
 						this._password=password;
 						this._town=town;
 						this._city=city;
 						this._EMAIL=email;
 						this._address=address;
-						Insert(name,password,town,city,email,address);
+						Insert(name,password,town,city,email,address,bloodType,bloodTypeNum);
 					}
 				public String get_name() {
 					return _name;
@@ -58,8 +60,8 @@ import java.util.logging.Logger;
 					try {
 				
 						con = DriverManager.getConnection(
-								"jdbc:postgresql://localhost/KANBUL", "postgres",
-								"123456");
+								"jdbc:postgresql://localhost/KanBul", "postgres",
+								"Aybike_95");
 				
 					} catch (SQLException e) {
 				
@@ -85,7 +87,7 @@ import java.util.logging.Logger;
 				   return s;
 				}
 				
-				public  void Insert(String name,String password,String town,String city,String email,String address) throws SQLException {
+				public  void Insert(String name,String password,String town,String city,String email,String address,String bloodType,String bloodNum) throws SQLException {
 					Connection();
 				    String s=Search(email);
 					if(s!=null) {
@@ -94,15 +96,20 @@ import java.util.logging.Logger;
 					else
 					{		          
 						Statement st = con.createStatement(); 
-						st.executeUpdate("INSERT INTO kizilay " + 
-					                "VALUES ('"+email+"'"+", '12345', 'yenimahalle', 'Ankara')"); 
-					  
+						String sql="INSERT INTO kizilay " + 
+					                "VALUES ('"+name+"', '"+ password+"', '"+town+"', '"+city+"' , "+null+", '"+address+"'"+", '"+email+"' , '"+bloodType+"'"+", '"+bloodNum+"'"; 
+						st.executeUpdate(sql);
+						System.out.println(st.toString());
+						System.out.println("SÝSTEME EKLENDÝ FRROM KIZILAY/HASTANE");
 					    }
 				}
 				
 				
 				public static void main(String[]args) throws SQLException {
-				//	InsertHospital("Istanbul hastanesi");
+				Kýzýlay a = new Kýzýlay
+						();
+				System.out.println("kýzýlajasdhasjdh");
+				a.Insert("","","","","","","","");
 				}
 				         
 				}

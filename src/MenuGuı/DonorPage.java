@@ -105,21 +105,17 @@ public class DonorPage {
 		Giris_Button.setBounds(214, 160, 89, 23);
 		Giris_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
 					// Kullanýcý adý ve sifre alýnarak veritabanýna bir query atýlacak 
-					// Kýzýlay Kiþi Hastane ve Otobus ýcýn ayrý mý atýlacak yoksa hepsi içib bir tane mi ?
-					
+					// Kýzýlay Kiþi Hastane ve Otobus ýcýn ayrý mý atýlacak yoksa hepsi içib bir tane mi ?				
 					String kullaniciAdi = KullaniciAdi_textField.getText(); 
 					String sifre = Sifre_textField.getText(); 
-					
 					// Eger query sonucu kisi kayýtlýysa
-					
 					if(Kisi_RadioButton.isSelected()) {
 						// Kisi ekranýný açacak
 						try {
 						   // EXIST METODUNU DUZELT !!! 
 							kullaniciPage=person.SearchEnter( kullaniciAdi, sifre);
-							System.out.print(kullaniciPage.toString());
+							//System.out.print(kullaniciPage.toString());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -130,6 +126,13 @@ public class DonorPage {
 						frame.dispose();
 					}
 					if(Kizilay_RadioButton.isSelected()) {
+						try {
+							kullaniciPage=person.SearchEnter( kullaniciAdi, sifre);
+							System.out.print(kullaniciPage.toString());
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						KizilayPage kizilayPage = new KizilayPage();
 						kizilayPage.newScreen(kullaniciAdi,sifre);
 						frame.dispose();

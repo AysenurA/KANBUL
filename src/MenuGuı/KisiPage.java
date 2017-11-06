@@ -20,7 +20,8 @@ public class KisiPage {
 	private JTextField Email_textField;
 	private JTextField Sifre_textField;
 	private JTextField Yas_textField;
-
+	JComboBox<String> Il_List = new JComboBox<String>();
+	JComboBox<String> Ilce_List = new JComboBox<String>();
 	/**
 	 * Launch the application.
 	 */
@@ -51,8 +52,8 @@ public class KisiPage {
 					window.Soyad_textField.setText(kullaniciPage.get(4));
 					window.Sifre_textField.setText(kullaniciPage.get(6));
 					window.Yas_textField.setText(kullaniciPage.get(5));
-				//	window.Il_textField.setText(kullaniciPage.get(5));
-					
+					window.Il_List.setSelectedItem(kullaniciPage.get(7));
+					window.Ilce_List.setSelectedItem(kullaniciPage.get(8));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -97,12 +98,11 @@ public class KisiPage {
 		Ililce_Label.setBounds(44, 132, 59, 23);
 		frame.getContentPane().add(Ililce_Label);
 		
-		JComboBox<String> Il_List = new JComboBox<String>();
-		Il_List.setBounds(189, 133, 120, 20);
+				Il_List.setBounds(189, 133, 120, 20);
 		Il_List.addItem("Ankara");
 		frame.getContentPane().add(Il_List);
 		
-		JComboBox<String> Ilce_List = new JComboBox<String>();
+		
 		Ilce_List.setBounds(319, 133, 120, 20);
 		Ilce_List.addItem("Akyurt");
 		Ilce_List.addItem("Altýndað");

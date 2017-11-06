@@ -72,7 +72,7 @@ public class KanVerici {
         }
          //if(flag 2) HASTANE
         public KanVerici ( int flag,String telephone,String email,String fname,String pass,
-      		   String bloodType,String town,String city,String bloodTypeNum) throws SQLException {
+      		   String bloodType,String town,String city,String bloodTypeNum,String address) throws SQLException {
         	 
         	_flag=flag;
           	_TELEPHONE=telephone;
@@ -82,7 +82,7 @@ public class KanVerici {
           	_bloodType=bloodType;
           	_town=town;
           	_city = city;
-        	//_address = address;
+        	_address = address;
         	_bloodTypeNum=bloodTypeNum;
         	
         	System.out.println(flag);
@@ -135,7 +135,8 @@ public class KanVerici {
         public boolean Exist(String _TELEPHONE,String _EMAIL) throws SQLException {
         	
         	Connection ();
-        	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE telephone='"+_TELEPHONE+"' and email='"+_EMAIL+"'");
+        	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE telephone='"+_TELEPHONE+"' "
+        			+ "and email='"+_EMAIL+"'");
 	        rs = pst.executeQuery();
 	        String check=null;
 	          while (rs.next()) {
@@ -149,7 +150,6 @@ public class KanVerici {
 	                	return true;
 
         }
-        
         public void SearchBlood(String BloodType) throws SQLException {
            
         	Connection ();
@@ -224,7 +224,7 @@ public class KanVerici {
         		sql="INSERT INTO \"kan_verici\" VALUES"
             			+" ("+"'"+_flag+"' ,"+"'"+_TELEPHONE+"' ,"+"'"+_EMAIL+"',"+"'"+
             			     _fname+"'," +""+null+","+""+null+","+"'"+_userPassword+"',"+null+","+null+",'"
-            			      +_city+"', '"+_town+"',"+null+", '"+_bloodType+"',"+null+","+"'"+_bloodTypeNum+"',"+""+null+")";
+            			      +_city+"', '"+_town+"',"+null+", '"+_bloodType+"',"+null+","+"'"+_bloodTypeNum+"',"+""+null+"',"+"'"+_address+"')";
         		System.out.println(sql);
         		stmt.executeUpdate(sql);
         		
