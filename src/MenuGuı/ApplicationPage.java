@@ -9,6 +9,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
+
+import sqlTable.KanArayan;
+import sqlTable.KanVerici;
+
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
@@ -29,6 +33,8 @@ public class ApplicationPage {
 	 * Launch the application.
 	 */
 	public static void main(String args[]) {
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

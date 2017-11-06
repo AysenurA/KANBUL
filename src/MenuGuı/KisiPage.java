@@ -3,6 +3,7 @@ package MenuGuý;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,12 +37,22 @@ public class KisiPage {
 		});
 	}
 	
-	public  void newScreen() {
+	public  void newScreen(ArrayList <String> kullaniciPage) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					KisiPage window = new KisiPage();
 					//Select ile databaseden ilgili kiþinin verilieri getirilir
+					
+					
+					window.Telefon_textField.setText("0"+kullaniciPage.get(0));
+					window.Email_textField.setText(kullaniciPage.get(1));
+					window.Ad_textField.setText(kullaniciPage.get(2));
+					window.Soyad_textField.setText(kullaniciPage.get(4));
+					window.Sifre_textField.setText(kullaniciPage.get(6));
+					window.Yas_textField.setText(kullaniciPage.get(5));
+				//	window.Il_textField.setText(kullaniciPage.get(5));
+					
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

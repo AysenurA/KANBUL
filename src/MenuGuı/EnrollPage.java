@@ -3,6 +3,7 @@ package MenuGuý;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import sqlTable.KanVerici;
 
 
 @SuppressWarnings("unused")
@@ -22,7 +25,7 @@ public class EnrollPage {
 	private JTextField TelNo_textField;
 	private JTextField Email_textField;
 	private JTextField Sifre_textField;
-
+	public KanVerici person =new KanVerici();
 	/**
 	 * Launch the application.
 	 */
@@ -195,25 +198,31 @@ public class EnrollPage {
 		JButton Kaydet_Button = new JButton("Kaydet");
 		Kaydet_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+			
 			int flagNum = 1;
-			int telephone = Integer.parseInt(TelNo_textField.getText().toString());
+			String telephone = (TelNo_textField.getText().toString());
 			String email = Email_textField.getText().toString();
 			String fname = Ad_textField.getText().toString();
-			// String mname = ?
 			String lname = Soyad_textField.getText().toString();
 			String userPassword = Sifre_textField.getText().toString();
 			char cinsiyet = (Cinsiyet_List.getSelectedItem().toString()).charAt(0);
+			if(cinsiyet =='E') {
+				cinsiyet ='M';
+			}
+			else
+				cinsiyet ='F';
 			// E ise MALE , K ise FEMALE check et.
 			int age = Integer.parseInt(Yas_textField.getText().toString());
 			String city = Il_List.getSelectedItem().toString();
 			String town = Ilce_List.getSelectedItem().toString();
 			int report = Evet_RadioButton.isSelected() ? 0 : 1	;
 			String bloodType = KanGrubu_List.getSelectedItem().toString();
-			//	int plaka
-			// 	bloodtypenum
-			//	address
+			
+			
 			//  INSERT edilip veri tabanýna girilir üye olan kiþinin bilgileri
+			
+			Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report,cinsiyet,age);
+			
 			}
 		});
 		Kaydet_Button.setBounds(375, 357, 140, 23);
@@ -232,4 +241,19 @@ public class EnrollPage {
 		
 		
 	}
-}
+	public void Insert(int flagNum,String telephone,String email,String fname,String lname,String userPassword, String bloodType,String town,String city,int report,char cinsiyet,int age) {
+		
+		
+		try {
+			 if (!person.Exist(telephone,email))
+			person = new KanVerici(flagNum,telephone,email,fname," ",lname,userPassword,bloodType,town,city,report,cinsiyet,age);
+		    // ayný kiþi varsa uyarý mesajý çýkýcaktýr.
+			 System.out.println("Kiþi Mevcut From enrollPage");
+		} catch (SQLException e1) {
+			System.out.println("EnrollPage INSERT exception");
+			e1.getMessage();
+			e1.printStackTrace();
+		}
+	
+		}
+	}

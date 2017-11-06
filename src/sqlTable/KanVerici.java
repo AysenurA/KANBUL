@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class KanVerici {
 	/*
@@ -34,10 +35,11 @@ public class KanVerici {
     	public PreparedStatement pst = null;
         public ResultSet rs = null;
         public Statement stmt = null;
-        public  ResultSetMetaData metadata =null ;
+        public ResultSetMetaData metadata =null ;
         public String sql=null;
         public int columnCount;
         
+        public ArrayList< String> KullaniciPage = new ArrayList<>();
        
         
         
@@ -165,10 +167,30 @@ public class KanVerici {
                 		if(i==columnCount)
                 		System.out.println();
 		            }
+            }}
                 }
-                }
-  }
             
+            
+            public  ArrayList<String> SearchEnter(String Email,String password) throws SQLException {
+                
+            	Connection ();
+            	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE email='"+Email+"' and userpassword='"+password+"'" );
+    	        rs = pst.executeQuery();
+    	        metadata = rs.getMetaData();
+                columnCount = metadata.getColumnCount();
+                while(rs.next()) {
+                	
+                for (int i = 2; i <= columnCount; i++) {
+                	if( i!=8 && i!=12 && i!=13) {
+                		if(rs.getString(i)!=null  )
+                			KullaniciPage.add(rs.getString(i));
+    		            }
+                    }
+                    }
+              
+				return KullaniciPage;
+           }
+             
             
             public void Delete(String _TELEPHONE,String _EMAIL) throws SQLException {
            

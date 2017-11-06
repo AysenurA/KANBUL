@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,12 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import sqlTable.KanVerici;
+
 public class DonorPage {
 
 	private JFrame frame;
 	private JTextField KullaniciAdi_textField;
 	private JTextField Sifre_textField;
-
+	public KanVerici person = new KanVerici ();
+	public 	ArrayList<String> kullaniciPage=new ArrayList <String>();
 	/**
 	 * Launch the application.
 	 */
@@ -111,9 +116,17 @@ public class DonorPage {
 					
 					if(Kisi_RadioButton.isSelected()) {
 						// Kisi ekranýný açacak
+						try {
+						   // EXIST METODUNU DUZELT !!! 
+							kullaniciPage=person.SearchEnter( kullaniciAdi, sifre);
+							System.out.print(kullaniciPage.toString());
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						KisiPage kp=new KisiPage();
 						// Kullanýcý adýyla  þifreyi parametre olarak geçir
-						kp.newScreen();
+						kp.newScreen(kullaniciPage);
 						frame.dispose();
 					}
 					if(Kizilay_RadioButton.isSelected()) {
