@@ -11,7 +11,7 @@ public class KanVerici {
 	/*
 	 To do list :
 	 * Add Update method, for each userType 
-	 
+	 ALTER TABLE KIZILAY RENAME COLUMN HospitalCity TO City;
 	 */
 
         private int _flag ;
