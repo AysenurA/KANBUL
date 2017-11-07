@@ -20,24 +20,32 @@ import java.util.logging.Logger;
 				private String _password;
 				private String _town;
 				private String _city;
-				private String _EMAIL;
 				private String _address;
+				private String _email;
+				private String _plate;
+				private String _bloodType;
+				private String _bloodTypeNum;
 				public  Connection con = null;
 				public  PreparedStatement pst = null;
-				public ResultSet rs = null;
-						
-			   public Kýzýlay() {
+				public ResultSet rs = null;	
+				public Kýzýlay() {
 				   
-			   }
-			   public Kýzýlay(String name,String password,String town,String city,String email,String address,String bloodType,String bloodTypeNum) throws SQLException {
+				}
+				public Kýzýlay(String name,String password,String town,String city,String plate,String email,String address,String bloodType,String bloodTypeNum) throws SQLException {
 						this._name=name;
 						this._password=password;
 						this._town=town;
 						this._city=city;
-						this._EMAIL=email;
+						this._plate=plate;
 						this._address=address;
-						Insert(name,password,town,city,email,address,bloodType,bloodTypeNum);
+						this._email=email;
+						this._bloodType=bloodType;
+						this._bloodTypeNum=bloodTypeNum;
+						Insert(name,password,town,city,plate,address,email,bloodType,bloodTypeNum);
 					}
+				public String get_email() {
+					return _email;
+				}
 				public String get_name() {
 					return _name;
 				}
@@ -50,18 +58,24 @@ import java.util.logging.Logger;
 				public String get_city() {
 					return _city;
 				}
-				public String get_EMAIL() {
-					return _EMAIL;
+				public String get_plate() {
+					return _plate;
 				}
 				public String get_address() {
 					return _address;
+				}
+				public String get_bloodType() {
+					return _bloodType;
+				}
+				public String get_bloodTypeNum() {
+					return _bloodTypeNum;
 				}
 				private void Connection() {
 					try {
 				
 						con = DriverManager.getConnection(
-								"jdbc:postgresql://localhost/KanBul", "postgres",
-								"Aybike_95");
+								"jdbc:postgresql://localhost/KANBUL", "postgres",
+								"123456");
 				
 					} catch (SQLException e) {
 				
@@ -81,13 +95,13 @@ import java.util.logging.Logger;
 				        pst = con.prepareStatement("SELECT * FROM \"kizilay\" WHERE email='"+email+"'");
 				        rs = pst.executeQuery();
 				        while (rs.next()) {
-				        	s=rs.getString(1);
+				        	s=rs.getString(7);
 				        	System.out.println(s);
 				       	}
 				   return s;
 				}
 				
-				public  void Insert(String name,String password,String town,String city,String email,String address,String bloodType,String bloodNum) throws SQLException {
+				public  void Insert(String name,String password,String town,String city,String plate,String address,String email,String bloodType,String bloodNum) throws SQLException {
 					Connection();
 				    String s=Search(email);
 					if(s!=null) {
@@ -95,11 +109,12 @@ import java.util.logging.Logger;
 					}
 					else
 					{		          
-						Statement st = con.createStatement(); 
-						String sql="INSERT INTO kizilay " + 
-					                "VALUES ('"+name+"', '"+ password+"', '"+town+"', '"+city+"' , "+null+", '"+address+"'"+", '"+email+"' , '"+bloodType+"'"+", '"+bloodNum+"'"; 
-						st.executeUpdate(sql);
-						System.out.println(st.toString());
+						Statement st = con.createStatement();
+						st.executeUpdate("INSERT INTO kizilay" + " VALUES ('"
+						+name+"' ,"+"'"+password+"' ,"+"'"+town+"',"+"'"+
+				        			     city+"'," +"'"+plate+"',"+"'"+address+"',"+"'"+email+"', '"+bloodType+"', '"+bloodNum
+				        			     +"')");			                
+						//System.out.println(st.toString());
 						System.out.println("SÝSTEME EKLENDÝ FRROM KIZILAY/HASTANE");
 					    }
 				}
@@ -108,8 +123,7 @@ import java.util.logging.Logger;
 				public static void main(String[]args) throws SQLException {
 				Kýzýlay a = new Kýzýlay
 						();
-				System.out.println("kýzýlajasdhasjdh");
-				a.Insert("","","","","","","","");
+				a.Insert("a","b","c","d","e","f","j","h","ý");
 				}
 				         
 				}

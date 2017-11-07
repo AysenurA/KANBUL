@@ -210,7 +210,7 @@ public class HastaneEklePage {
 				
 				try {
 				//	Insert(flagNum,telephone,email,fname,userPassword,bloodType,town,city,bloodTypeNum,address);
-					   hastane.Insert(fname,userPassword,town,city,email,address,bloodType, bloodTypeNum);
+					   hastane.Insert(fname,email,userPassword,town,city,"plate",address,bloodType, bloodTypeNum);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					System.out.println(" From E1");
@@ -249,8 +249,8 @@ public class HastaneEklePage {
 	}
 	
 	public void Insert( int flag,String telephone,String email,String fname,String pass,
-   		   String bloodType,String town,String city,String bloodTypeNum,String address) throws SQLException {
-		   hastane = new Kýzýlay(fname,pass,town,city,email,address,bloodType, bloodTypeNum);
+   		   String bloodType,String town,String city,String bloodTypeNum,String address,String plate) throws SQLException {
+		   hastane = new Kýzýlay(fname,pass,town,city,plate,address,email,bloodType, bloodTypeNum);
 		
 	}
 }
