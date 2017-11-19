@@ -210,10 +210,11 @@ public class HastaneEklePage {
 				
 				try {
 				
-					   hastane.Insert(fname,userPassword,town,city,"",address,email,bloodType,bloodTypeNum);
+					  
+					  Insert(telephone,email, fname, userPassword, bloodType,town,city,bloodTypeNum,address,null) ;
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					System.out.println(" From E1");
+					System.out.println(" OKOKOKO");
 					//e1.printStackTrace();
 				}
 				/*
@@ -248,9 +249,9 @@ public class HastaneEklePage {
 		Ad_textField.setColumns(10);
 	}
 	
-	public void Insert( int flag,String telephone,String email,String fname,String pass,
+	public void Insert( String telephone,String email,String fname,String pass,
    		   String bloodType,String town,String city,String bloodTypeNum,String address,String plate) throws SQLException {
-		   hastane = new Kýzýlay(fname,pass,town,city,plate,address,email,bloodType, bloodTypeNum);
-		
+		   hastane = new Kýzýlay(fname,telephone,pass,town,city,plate,address,email,bloodType, bloodTypeNum);
+		   
 	}
 }

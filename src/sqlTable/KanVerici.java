@@ -109,6 +109,7 @@ public class KanVerici {
           	_TELEPHONE=telephone;
           	_EMAIL=email;
           	_bloodType=bloodType;
+          	_userPassword=pass;
           	_town=town;
           	_city = city;
         	_PLATE=plate;
@@ -396,7 +397,6 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
                 	
                 for (int i = 2; i <= columnCount; i++) {
                 	if( i!=8 && i!=12 && i!=13) {
-                		if(rs.getString(i)!=null  )
                 			KullaniciPage.add(rs.getString(i));
     		            }
                     }
@@ -481,7 +481,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		sql="INSERT INTO \"kan_verici\" VALUES"
             			+" ("+"'"+_flag+"' ,"+"'"+_TELEPHONE+"' ,"+"'"+_EMAIL+"',"+"'"+
             			     _fname+"'," +""+null+","+""+null+","+"'"+_userPassword+"',"+null+","+null+",'"
-            			      +_city+"', '"+_town+"',"+null+", '"+_bloodType+"',"+null+","+"'"+_bloodTypeNum+"',"+""+null+"',"+"'"+_address+"')";
+            			      +_city+"', '"+_town+"',"+null+", '"+_bloodType+"',"+null+","+"'"+_bloodTypeNum+"',"+"'"+_address+"')";
         		System.out.println(sql);
         		stmt.executeUpdate(sql);
         		
@@ -492,7 +492,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		
         		sql="INSERT INTO \"kan_verici\" VALUES"
             			+" ("+"'"+_flag+"' ,"+"'"+_TELEPHONE+"' ,"+"'"+_EMAIL+"',"+"'"+
-            			     _fname+"'," +""+null+","+""+null+","+""+null+","+null+","+null+",'"
+            			     _fname+"'," +""+null+","+""+null+","+""+_userPassword+","+null+","+null+",'"
             			      +_city+"', '"+_town+"',"+null+", '"+_bloodType+"','"+_PLATE+"',"+"'"+_bloodTypeNum+"',"+"'"+_address+"')";
         		System.out.println(sql);
         		stmt.executeUpdate(sql);

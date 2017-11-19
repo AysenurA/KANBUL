@@ -25,13 +25,15 @@ import java.util.logging.Logger;
 				private String _plate;
 				private String _bloodType;
 				private String _bloodTypeNum;
+				private String _telephone;
 				public  Connection con = null;
 				public  PreparedStatement pst = null;
 				public ResultSet rs = null;	
+				KanVerici person = new KanVerici() ;
 				public Kýzýlay() {
 				   
 				}
-				public Kýzýlay(String name,String password,String town,String city,String plate,String email,String address,String bloodType,String bloodTypeNum) throws SQLException {
+				public Kýzýlay(String name,String telephone,String password,String town,String city,String plate,String email,String address,String bloodType,String bloodTypeNum) throws SQLException {
 						this._name=name;
 						this._password=password;
 						this._town=town;
@@ -41,7 +43,18 @@ import java.util.logging.Logger;
 						this._email=email;
 						this._bloodType=bloodType;
 						this._bloodTypeNum=bloodTypeNum;
-						Insert(name,password,town,city,plate,address,email,bloodType,bloodTypeNum);
+						this._telephone=telephone;
+						if(_plate==null) {
+						InsertHospital(_name,_password,_town,_city,_address,_email,_bloodType,_bloodTypeNum);
+						person = new KanVerici ( 2,_telephone,_email,_name,_password,
+					      		   _bloodType,_town,_city,_bloodTypeNum,_address);
+						}
+						else {
+							InsertBus(_name,_password,_town,_city,_plate,_address,_email,_bloodType,_bloodTypeNum);
+							person =new KanVerici(3,_telephone,_email,_name,_password,
+						       		   _bloodType,_town,_city,_plate,_bloodTypeNum,_address);
+						}
+							
 					}
 				public String get_email() {
 					return _email;
@@ -101,7 +114,24 @@ import java.util.logging.Logger;
 				   return s;
 				}
 				
-				public  void Insert(String name,String password,String town,String city,String plate,String address,String email,String bloodType,String bloodNum) throws SQLException {
+				public  void InsertHospital(String name,String password,String town,String city,String address,String email,String bloodType,String bloodNum) throws SQLException {
+					Connection();
+				    String s=Search(email);
+					if(s!=null) {
+						System.out.println("The hospital is already exist");
+					}
+					else
+					{		          
+						Statement st = con.createStatement();
+						st.executeUpdate("INSERT INTO kizilay" + " VALUES ('"
+						+name+"' ,"+"'"+password+"' ,"+"'"+town+"',"+"'"+
+				        			     city+"'," +"'"+null+"',"+"'"+address+"',"+"'"+email+"', '"+bloodType+"', '"+bloodNum
+				        			     +"')");			                
+						//System.out.println(st.toString());
+						System.out.println("SÝSTEME EKLENDÝ FRROM KIZILAY/HASTANE");
+					    }
+				}
+				public  void InsertBus(String name,String password,String plate,String town,String city,String address,String email,String bloodType,String bloodNum) throws SQLException {
 					Connection();
 				    String s=Search(email);
 					if(s!=null) {
@@ -120,11 +150,6 @@ import java.util.logging.Logger;
 				}
 				
 				
-				public static void main(String[]args) throws SQLException {
-				Kýzýlay a = new Kýzýlay
-						();
-				a.Insert("a","b","c","d","e","f","j","h","ý");
-				}
 				         
 				}
 				
