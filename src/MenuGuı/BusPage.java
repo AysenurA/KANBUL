@@ -41,7 +41,7 @@ public class BusPage {
 	private JLabel lblNewLabel_1;
 	private JTextField textField_1;
 	private JLabel ayýnOtobüsüPlaka_Label;
-	private JLabel label_2;
+	private JLabel ayinOtobüsililçe_Label;
 	private JTextField textField_2;
 
 	/**
@@ -291,20 +291,20 @@ public class BusPage {
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(748, 178, 113, 20);
+		textField_1.setBounds(748, 178, 150, 20);
 		frame.getContentPane().add(textField_1);
 		
 		ayýnOtobüsüPlaka_Label = new JLabel("Plaka:");
 		ayýnOtobüsüPlaka_Label.setBounds(603, 181, 113, 14);
 		frame.getContentPane().add(ayýnOtobüsüPlaka_Label);
 		
-		label_2 = new JLabel("Otob\u00FCs\u00FCn Bulundu\u011Fu \u0130l/\u0130l\u00E7e :");
-		label_2.setBounds(603, 221, 156, 14);
-		frame.getContentPane().add(label_2);
+		ayinOtobüsililçe_Label = new JLabel("Otob\u00FCs\u00FCn Bulundu\u011Fu \u0130l/\u0130l\u00E7e :");
+		ayinOtobüsililçe_Label.setBounds(603, 221, 156, 14);
+		frame.getContentPane().add(ayinOtobüsililçe_Label);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(748, 218, 113, 20);
+		textField_2.setBounds(748, 218, 150, 20);
 		frame.getContentPane().add(textField_2);
 		}
 	
