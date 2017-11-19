@@ -4,12 +4,16 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import sqlTable.KanArayan;
 
 
 public class KanArayanPage {
@@ -18,6 +22,7 @@ public class KanArayanPage {
 	private JTextField Ad_textField;
 	private JTextField Soyad_textField;
 	private JTextField TelNo_textField;
+	private JComboBox<String> HastaneninAdý;
 
 	/**
 	 * Launch the application.
@@ -53,21 +58,21 @@ public class KanArayanPage {
 		
 		JLabel HastaninBulunduguIl_Label = new JLabel("Hastan\u0131n Bulundu\u011Fu  \u0130l:");
 		HastaninBulunduguIl_Label.setFont(new Font("Dialog", Font.PLAIN, 12));
-		HastaninBulunduguIl_Label.setBounds(36, 103, 172, 29);
+		HastaninBulunduguIl_Label.setBounds(36, 102, 172, 29);
 		frame.getContentPane().add(HastaninBulunduguIl_Label);
 		
 		JComboBox<String> HastaninBulunduguIl_List = new JComboBox<>();
-		HastaninBulunduguIl_List.setBounds(200, 107, 130, 20);
+		HastaninBulunduguIl_List.setBounds(270, 107, 130, 20);
 		HastaninBulunduguIl_List.addItem("Ankara");
 		frame.getContentPane().add(HastaninBulunduguIl_List);
 		
 		JLabel HastaninBulunduguIlce_Label = new JLabel("Hastan\u0131n Bulundu\u011Fu \u0130l\u00E7e:");
 		HastaninBulunduguIlce_Label.setFont(new Font("Dialog", Font.PLAIN, 12));
-		HastaninBulunduguIlce_Label.setBounds(36, 129, 172, 29);
+		HastaninBulunduguIlce_Label.setBounds(36, 128, 172, 29);
 		frame.getContentPane().add(HastaninBulunduguIlce_Label);
 		
 		JComboBox<String> HastaninBulunduguIlce_List = new JComboBox<>();
-		HastaninBulunduguIlce_List.setBounds(200, 133, 130, 20);
+		HastaninBulunduguIlce_List.setBounds(270, 133, 130, 20);
 		HastaninBulunduguIlce_List.addItem("Akyurt");
 		HastaninBulunduguIlce_List.addItem("Altýndað");
 		HastaninBulunduguIlce_List.addItem("Ayaþ");
@@ -96,7 +101,7 @@ public class KanArayanPage {
 		frame.getContentPane().add(HastaninBulunduguIlce_List);
 		
 		JComboBox<String> ArananKanGrubu_List = new JComboBox<String>();
-		ArananKanGrubu_List.setBounds(200, 83, 130, 20);
+		ArananKanGrubu_List.setBounds(270, 83, 130, 20);
 		ArananKanGrubu_List.addItem("0Rh+");
 		ArananKanGrubu_List.addItem("0Rh-");
 		ArananKanGrubu_List.addItem("ARh+");
@@ -112,18 +117,32 @@ public class KanArayanPage {
 		JButton KanAra_Button = new JButton("Kan Ara");
 		KanAra_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+			
 			String bloodType = ArananKanGrubu_List.getSelectedItem().toString();
 			String city = HastaninBulunduguIl_List.getSelectedItem().toString();
 			String town = HastaninBulunduguIlce_List.getSelectedItem().toString();
+			String hospitalName=HastaneninAdý.getSelectedItem().toString();
 			
+			System.out.println(bloodType);
 			// Yukarýdaki 3 bilgiye göre Kan Verici tablosuna query gönderilecek
 			
 			// Gelen Bilgiler yeni bir ekran üzerinde gösterilecek.
 			//frame.dispose();
+			KanArayan test = new KanArayan();
+			try {
+				 ArrayList <String> result =new ArrayList <String>();
+				 System.out.println(result.toString());
+				      test.Search(bloodType,hospitalName);
+			
+				 
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			}
 		});
-		KanAra_Button.setBounds(200, 174, 130, 23);
+		KanAra_Button.setBounds(294, 228, 130, 23);
 		frame.getContentPane().add(KanAra_Button);
 		
 		JLabel Ad_Label = new JLabel("Ad:");
@@ -131,7 +150,7 @@ public class KanArayanPage {
 		frame.getContentPane().add(Ad_Label);
 		
 		Ad_textField = new JTextField();
-		Ad_textField.setBounds(200, 8, 130, 20);
+		Ad_textField.setBounds(270, 8, 130, 20);
 		frame.getContentPane().add(Ad_textField);
 		Ad_textField.setColumns(10);
 		
@@ -140,7 +159,7 @@ public class KanArayanPage {
 		frame.getContentPane().add(Soyad_Label);
 		
 		Soyad_textField = new JTextField();
-		Soyad_textField.setBounds(200, 33, 130, 20);
+		Soyad_textField.setBounds(270, 33, 130, 20);
 		frame.getContentPane().add(Soyad_textField);
 		Soyad_textField.setColumns(10);
 		
@@ -149,7 +168,7 @@ public class KanArayanPage {
 		frame.getContentPane().add(TelNo_Label);
 		
 		TelNo_textField = new JTextField();
-		TelNo_textField.setBounds(200, 58, 130, 20);
+		TelNo_textField.setBounds(270, 58, 130, 20);
 		frame.getContentPane().add(TelNo_textField);
 		TelNo_textField.setColumns(10);
 		
@@ -170,6 +189,44 @@ public class KanArayanPage {
 		});
 		Geri_Button.setBounds(12, 235, 85, 25);
 		frame.getContentPane().add(Geri_Button);
+		
+		JLabel lblHastaneninAd = new JLabel("Hastan\u0131n Bulundu\u011Fu Hastanenin Ad\u0131:");
+		lblHastaneninAd.setFont(new Font("Dialog", Font.PLAIN, 12));
+		lblHastaneninAd.setBounds(36, 157, 224, 29);
+		frame.getContentPane().add(lblHastaneninAd);
+		
+		 HastaneninAdý = new JComboBox<String>();
+		HastaneninAdý.setBounds(12, 197, 412, 20);
+		frame.getContentPane().add(HastaneninAdý);
+		HastaneninAdý.addItem("Hastane kalmýyoruz.");
+		HastaneninAdý.addItem("AKYURT DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("ANKARA EÐÝTÝM VE ARAÞTIRMA HASTANESÝ");
+		HastaneninAdý.addItem("ANKARA NUMUNE EÐÝTÝM VE ARAÞTIRMA HASTANESÝ");
+		HastaneninAdý.addItem("ANKARA ULUS DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("DIÞKAPI YILDIRIM BEYAZIT EÐÝTÝM VE ARAÞTIRMA HASTANESÝ");
+		HastaneninAdý.addItem("BEYPAZARI DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("ANKARA 29 MAYIS DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("TÜRKÝYE YÜKSEK ÝHTÝSAS EÐÝTÝM VE ARAÞTIRMA HASTANESÝ");
+		HastaneninAdý.addItem("BEYTEPE MURAT ERDÝ EKER DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("HALÝL ÞIVGIN ÇUBUK DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("DR. HULUSÝ ALATAÞ ELMADAÐ DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("ETÝMESGUT SAÝT ERTÜRK DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("GÖLBAÞI HASVAK DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("HAYMANA DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("KALECÝK DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("HAMDÝ ERÝÞ KAZAN DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("ANKARA MESLEK HASTALIKLARI HASTANESÝ");
+		HastaneninAdý.addItem("KEÇÝÖREN EÐÝTÝM ARAÞTIRMA HASTANESÝ");
+		HastaneninAdý.addItem("ANKARA GÜLHANE EÐÝTÝM VE ARAÞTIRMA HASTANESÝ");
+		HastaneninAdý.addItem("Ulus Devlet Hastanesi");
+		HastaneninAdý.addItem("KIZILCAHAMAM DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("NALLIHAN DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("POLATLI DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("ÞEREFLÝKOÇHÝSAR DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("DR. NAFÝZ KÖREZ SÝNCAN DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("ANKARA GAZÝ MUSTAFA KEMAL DEVLET HASTANESÝ");
+		HastaneninAdý.addItem("YENÝMAHALLE EÐÝTÝM VE ARAÞTIRMA HASTANESÝ");
+
 	}
 	
 	private Object makeObj(final String item)  {
