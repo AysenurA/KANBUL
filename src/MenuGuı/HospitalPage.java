@@ -3,6 +3,8 @@ package MenuGuý;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,21 +12,54 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import sqlTable.KanVerici;
+
 public class HospitalPage {
 
 	private JFrame frame;
 	private JLabel UniteSayisi_Label;
 	private JTextField UniteSayisi_textField;
 	private JTextField HastaneAdi_textField;
+	public static String  hastaneEmail="";
+	JRadioButton ZeroPos_radioButton;
+	JRadioButton ZeroNeg_radioButton;
+	JRadioButton APos_radioButton;
+	JRadioButton ANeg_radioButton;
+	JRadioButton BPos_radioButton;
+	JRadioButton BNeg_radioButton;
+	JRadioButton ABPos_radioButton;
+	JRadioButton ABNeg_radioButton;
 
 	/**
 	 * Launch the application.
 	 */
-	public void hospitalMemberScreen(String kullaniciAdi,String sifre) {  // Uye ile ilgili spesifik bilgiler ekrana verilecek
-		EventQueue.invokeLater(new Runnable() {							  // DataBaseden SELECT edilip
+	public void hospitalMemberScreen(String kullaniciAdi,ArrayList<String> kullaniciPage) {  
+		EventQueue.invokeLater(new Runnable() {				
 			public void run() {
 				try {
+					hastaneEmail = kullaniciAdi;
 					HospitalPage window = new HospitalPage();
+					window.HastaneAdi_textField.setText(kullaniciPage.get(0));
+					window.UniteSayisi_textField.setText(kullaniciPage.get(2));
+					String bloodType = kullaniciPage.get(1);
+					
+					if(bloodType.contains("0Rh+"))
+						window.ZeroPos_radioButton.setSelected(true);
+					if(bloodType.contains("0Rh-"))
+						window.ZeroNeg_radioButton.setSelected(true);
+					if(bloodType.contains("ARh+"))
+						window.APos_radioButton.setSelected(true);
+					if(bloodType.contains("ARh-"))
+						window.ANeg_radioButton.setSelected(true);
+					if(bloodType.contains("BRh+"))
+						window.BPos_radioButton.setSelected(true);
+					if(bloodType.contains("BRh-"))
+						window.BNeg_radioButton.setSelected(true);
+					if(bloodType.contains("ABRh+"))
+						window.ABPos_radioButton.setSelected(true);
+					if(bloodType.contains("ABRh-"))
+						window.ABNeg_radioButton.setSelected(true);
+			
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,35 +106,35 @@ public class HospitalPage {
 		frame.getContentPane().add(HastaneAdi_textField);
 		HastaneAdi_textField.setColumns(10);
 		
-		JRadioButton ZeroPos_radioButton = new JRadioButton("0Rh+");
+		ZeroPos_radioButton = new JRadioButton("0Rh+");
 		ZeroPos_radioButton.setBounds(40, 79, 62, 23);
 		frame.getContentPane().add(ZeroPos_radioButton);
 		
-		JRadioButton ZeroNeg_radioButton = new JRadioButton("0Rh-");
+		ZeroNeg_radioButton = new JRadioButton("0Rh-");
 		ZeroNeg_radioButton.setBounds(118, 79, 62, 23);
 		frame.getContentPane().add(ZeroNeg_radioButton);
 		
-		JRadioButton APos_radioButton = new JRadioButton("ARh+");
+		APos_radioButton = new JRadioButton("ARh+");
 		APos_radioButton.setBounds(196, 79, 62, 23);
 		frame.getContentPane().add(APos_radioButton);
 		
-		JRadioButton ANeg_radioButton = new JRadioButton("ARh-");
+		ANeg_radioButton = new JRadioButton("ARh-");
 		ANeg_radioButton.setBounds(267, 79, 62, 23);
 		frame.getContentPane().add(ANeg_radioButton);
 		
-		JRadioButton BPos_radioButton = new JRadioButton("BRh+");
+		BPos_radioButton = new JRadioButton("BRh+");
 		BPos_radioButton.setBounds(40, 105, 62, 23);
 		frame.getContentPane().add(BPos_radioButton);
 		
-		JRadioButton BNeg_radioButton = new JRadioButton("BRh-");
+		BNeg_radioButton = new JRadioButton("BRh-");
 		BNeg_radioButton.setBounds(118, 105, 62, 23);
 		frame.getContentPane().add(BNeg_radioButton);
 		
-		JRadioButton ABPos_radioButton = new JRadioButton("ABRh+");
+		ABPos_radioButton = new JRadioButton("ABRh+");
 		ABPos_radioButton.setBounds(196, 105, 69, 23);
 		frame.getContentPane().add(ABPos_radioButton);
 		
-		JRadioButton ABNeg_radioButton = new JRadioButton("ABRh-");
+		ABNeg_radioButton = new JRadioButton("ABRh-");
 		ABNeg_radioButton.setBounds(267, 105, 62, 23);
 		frame.getContentPane().add(ABNeg_radioButton);
 		
@@ -108,16 +143,7 @@ public class HospitalPage {
 			public void actionPerformed(ActionEvent e) {
 				
 				int flagNum = 2;
-				//int telephone
-				//String email
 				String fname = HastaneAdi_textField.getText().toString();
-				// mname
-				//String userPassword = HastaneSifreEkle_textField.toString();
-				// sex
-				// age
-				//String city 
-				//String town 
-				// report
 				String bloodType ="";				
 				if(ZeroPos_radioButton.isSelected()) bloodType += "0Rh+ ";  
 				if(ZeroNeg_radioButton.isSelected()) bloodType += "0Rh- ";  
@@ -133,6 +159,14 @@ public class HospitalPage {
 				
 				// Bilgiler UPDATE edilecek veritabanýnda
 				//frame.dispose();
+				 try {
+					Update(hastaneEmail,bloodType,bloodTypeNum);
+					 hastaneEmail="";
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				}
 		});
 		Kaydet_Button.setBounds(274, 222, 139, 23);
@@ -151,5 +185,9 @@ public class HospitalPage {
 		frame.getContentPane().add(btnGeri);
 		
 		
+	}
+	public void Update (String hastaneEmail ,String bloodType,String bloodTypeNum) throws SQLException {
+		KanVerici hastane = new KanVerici ();
+		hastane.UpdateHospital(hastaneEmail, bloodType, bloodTypeNum);
 	}
 }

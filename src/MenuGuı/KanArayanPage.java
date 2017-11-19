@@ -52,7 +52,7 @@ public class KanArayanPage {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel HastaninBulunduguIl_Label = new JLabel("Hastan\u0131n Bulundu\u011Fu  \u0130l:");
-		HastaninBulunduguIl_Label.setFont(new Font("Dialog", Font.BOLD, 12));
+		HastaninBulunduguIl_Label.setFont(new Font("Dialog", Font.PLAIN, 12));
 		HastaninBulunduguIl_Label.setBounds(36, 103, 172, 29);
 		frame.getContentPane().add(HastaninBulunduguIl_Label);
 		
@@ -62,7 +62,7 @@ public class KanArayanPage {
 		frame.getContentPane().add(HastaninBulunduguIl_List);
 		
 		JLabel HastaninBulunduguIlce_Label = new JLabel("Hastan\u0131n Bulundu\u011Fu \u0130l\u00E7e:");
-		HastaninBulunduguIlce_Label.setFont(new Font("Dialog", Font.BOLD, 12));
+		HastaninBulunduguIlce_Label.setFont(new Font("Dialog", Font.PLAIN, 12));
 		HastaninBulunduguIlce_Label.setBounds(36, 129, 172, 29);
 		frame.getContentPane().add(HastaninBulunduguIlce_Label);
 		

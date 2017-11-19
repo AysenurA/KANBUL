@@ -114,38 +114,76 @@ public class DonorPage {
 						// Kisi ekranýný açacak
 						try {
 						   // EXIST METODUNU DUZELT !!! 
+							
 							kullaniciPage=person.SearchEnter( kullaniciAdi, sifre);
+							
 							//System.out.print(kullaniciPage.toString());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						KisiPage kp=new KisiPage();
-						// Kullanýcý adýyla  þifreyi parametre olarak geçir
-						kp.newScreen(kullaniciPage);
-						frame.dispose();
+						if(kullaniciPage==null) {
+							ErrorPage errorPage = new ErrorPage();
+							errorPage.newScreen("Girilen kullanýcý adý veya þifre hatalý/geçersiz.");
+						}
+						else {
+							KisiPage kp=new KisiPage();
+							// Kullanýcý adýyla  þifreyi parametre olarak geçir
+							kp.newScreen(kullaniciPage);
+							frame.dispose();
+						}
 					}
 					if(Kizilay_RadioButton.isSelected()) {
 						try {
 							kullaniciPage=person.SearchEnter( kullaniciAdi, sifre);
-							System.out.print(kullaniciPage.toString());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						if(kullaniciPage==null) {
+							ErrorPage errorPage = new ErrorPage();
+							errorPage.newScreen("Girilen kullanýcý adý veya þifre hatalý/geçersiz.");
+						}
+						else {
 						KizilayPage kizilayPage = new KizilayPage();
 						kizilayPage.newScreen(kullaniciAdi,sifre);
 						frame.dispose();
+						}
 					}
 					if(Hastane_RadioButton.isSelected()) {
+						try {
+							kullaniciPage=person.SearchEnterHospital(kullaniciAdi, sifre);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						if(kullaniciPage==null) {
+							ErrorPage errorPage = new ErrorPage();
+							errorPage.newScreen("Girilen kullanýcý adý veya þifre hatalý/geçersiz.");
+						}
+						else {
 						HospitalPage hospitalPage = new HospitalPage();
-						hospitalPage.hospitalMemberScreen(kullaniciAdi,sifre);
+						hospitalPage.hospitalMemberScreen(kullaniciAdi,kullaniciPage);
 						frame.dispose();
+						}
 					}
 					if(KizilayOtobus_RadioButton.isSelected()) {
+						try {
+							kullaniciPage=person.SearchEnterBus(kullaniciAdi, sifre);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if(kullaniciPage==null) {
+							ErrorPage errorPage = new ErrorPage();
+							errorPage.newScreen("Girilen kullanýcý adý veya þifre hatalý/geçersiz.");
+						}
+						else {
 						BusPage busPage = new BusPage();
-						busPage.busMemberScreen(kullaniciAdi,sifre);
+						busPage.busMemberScreen(kullaniciAdi,kullaniciPage);
 						frame.dispose();
+						}
 					}	
 											
 			}

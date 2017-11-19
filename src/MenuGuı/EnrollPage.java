@@ -26,6 +26,7 @@ public class EnrollPage {
 	private JTextField Email_textField;
 	private JTextField Sifre_textField;
 	public KanVerici person =new KanVerici();
+	public ErrorPage window=new ErrorPage();
 	/**
 	 * Launch the application.
 	 */
@@ -221,7 +222,20 @@ public class EnrollPage {
 			
 			//  INSERT edilip veri tabanýna girilir üye olan kiþinin bilgileri
 			
-			Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report,cinsiyet,age);
+			
+			try {
+				if(person.Exist( email)) {
+					window.newScreen("Bu email adresi ile daha önce kayýt olundu.");
+				}
+				else
+				{
+					Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report,cinsiyet,age);
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 			
 			}
 		});

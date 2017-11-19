@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class KanVerici {
 	/*
@@ -40,7 +41,7 @@ public class KanVerici {
         public int columnCount;
         
         public ArrayList< String> KullaniciPage = new ArrayList<>();
-       
+        public static String  [][]  bloodTable = new String [8][8];
         
         
         public KanVerici() {
@@ -150,8 +151,130 @@ public class KanVerici {
 	                	return true;
 
         }
+ public boolean Exist(String _EMAIL) throws SQLException {
+        	
+        	Connection ();
+        	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE "
+        			+ " email='"+_EMAIL+"'");
+	        rs = pst.executeQuery();
+	        String check=null;
+	          while (rs.next()) {
+	               check=rs.getString(2)+" ";
+	            }
+	          
+	          if(check==null) {
+	                	return false;
+	                 }
+	                else 
+	                	return true;
+
+        }
+    public boolean InvalidAddress(String _EMAIL,String Password) throws SQLException {
+        	
+        	Connection ();
+        	
+        	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE "
+        			+ " email='"+_EMAIL+"'"+ " and userpassword='"+Password+"'");
+	        rs = pst.executeQuery();
+	        String check=null;
+	          while (rs.next()) {
+	               check=rs.getString(2)+" ";
+	            }
+	          
+	          if(check==null) {
+	                	return false;
+	                 }
+	                else 
+	                	return true;
+
+        }
+    
+    	
+    			
+       public int convertToIndex(String BloodType) {
+    	 //O- O+ A- A+ B- B+ AB- AB+
+    	   if ( BloodType =="0Rh-") 
+    		   return 0;
+    	   else if ( BloodType =="0Rh+")
+    		   return 1;
+    	   else if ( BloodType =="ARh-")
+    		   return 2;
+    	   else if ( BloodType =="ARh+")
+    		   return 3;
+    	   else if ( BloodType =="BRh-")
+    		   return 4;
+    	   else if ( BloodType =="BRh+")
+    		   return 5;
+    	   else if ( BloodType =="ABRh-")
+    		   return 6;
+    	   else 
+    		   return 7;
+    	   
+    	
+      }
+       public String convertToString(int BloodType) {
+      	 //O- O+ A- A+ B- B+ AB- AB+ 0Rh+
+  
+      	   if ( BloodType ==0) 
+      		   return "0Rh+";
+      	   else if ( BloodType ==1)
+      		   return "0Rh+";
+      	   else if ( BloodType ==2)
+      		   return "ARh-";
+      	   else if ( BloodType ==3)
+      		   return "ARh+";
+      	   else if ( BloodType ==4)
+      		   return "BRh-";
+      	   else if ( BloodType ==5)
+      		   return"BRh+";
+      	   else if ( BloodType ==6)
+      		   return "ABRh-";
+      	   else 
+      		   return "ABRh+";
+      	   
+      	
+        }
         public void SearchBlood(String BloodType) throws SQLException {
-           
+        
+        	int rowi =convertToIndex( BloodType);      
+        	//O- O+ A- A+ B- B+ AB- AB+
+        	for(int j =0;j <bloodTable.length;j++)
+        		if(bloodTable[rowi][j]=="X") {
+        			String type=convertToString(j);
+        			SearchBloodSql(type);
+        			
+        		}
+        }
+        public static void CreateBloodTable() {
+        	//O- O+ A- A+ B- B+ AB- AB+
+        	
+        	     for (int i = 0 ; i<bloodTable.length ;i++) {
+        	    	 for (int j = 0 ; j<bloodTable.length ;j++)
+        	    	 {
+        	    		 if(i==0 && j== 0)
+        	    			 bloodTable[0][0]="X";
+        	    		 else if( (i==1 && (j==0 || j== 1) )) 
+        	    			 bloodTable[1][j]="X";
+        	    		 else if (i==2 && (j==0 || j==2)) 
+        	    			 bloodTable[2][j]="X";
+        	    		 else if (i == 3 && (j==0 || j==1 || j==2 || j==3))
+        	    			 bloodTable[3][j]="X";
+        	    		 else if (i == 4 && (j==0 || j==4))
+        	    		     bloodTable[4][j]="X";
+        	    		 else if (i == 5 && (j==0 || j==1 || j==4 || j==5))
+        	    			 bloodTable[5][j]="X";
+        	    		 else if (i == 6 && (j==0 || j==2 || j==4 || j==6))
+        	    			 bloodTable[6][j]="X";
+        	    		 else if(i==7) 
+        	    			 bloodTable[7][j]="X";
+        	    		 else 
+        	    			 bloodTable[i][j]="O";
+        	    		 
+        	    	 }
+        	     }
+        	
+        }
+        public void SearchBloodSql(String BloodType) throws SQLException {
         	Connection ();
         	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE bloodtype like '%"+BloodType+"%'");
 	        rs = pst.executeQuery();
@@ -170,10 +293,34 @@ public class KanVerici {
             }}
                 }
             
-            
-            public  ArrayList<String> SearchEnter(String Email,String password) throws SQLException {
+            public  ArrayList<String> SearchEnterHospital(String Email,String password) throws SQLException {
                 
             	Connection ();
+            	
+            	if(InvalidAddress(Email,password)) {
+            	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE email='"+Email+"' and userpassword='"+password+"'" );
+    	        rs = pst.executeQuery();
+    	        metadata = rs.getMetaData();
+                columnCount = metadata.getColumnCount();
+                while(rs.next()) {
+                	
+                for (int i = 2; i <= columnCount; i++) {
+                	if(i==4 || i==13 || i==15) {
+                			KullaniciPage.add(rs.getString(i));
+                			System.out.println(rs.getString(i)+"sadsdqsd");
+    		            }
+                    }
+                }
+                return KullaniciPage;
+            	}
+				return null;
+           }
+            
+public  ArrayList<String> SearchEnter(String Email,String password) throws SQLException {
+                
+            	Connection ();
+            	
+            	if(InvalidAddress(Email,password)) {
             	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE email='"+Email+"' and userpassword='"+password+"'" );
     	        rs = pst.executeQuery();
     	        metadata = rs.getMetaData();
@@ -187,11 +334,34 @@ public class KanVerici {
     		            }
                     }
                     }
-              
-				return KullaniciPage;
+                return KullaniciPage;
+            	}
+				return null;
            }
              
-            
+
+			public  ArrayList<String> SearchEnterBus(String Email,String password) throws SQLException {
+			    
+				Connection ();
+				System.out.println("email"+Email+" psaaa"+password);
+				if(InvalidAddress(Email,password)) {
+				pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE email='"+Email+"' and userpassword='"+password+"'" );
+			    rs = pst.executeQuery();
+			    metadata = rs.getMetaData();
+			    columnCount = metadata.getColumnCount();
+			    while(rs.next()) {
+			    	
+			    for (int i = 2; i <= columnCount; i++) {
+			    	if( i==4 || i==10|| i==11 || i==13 || i==14 || i==15 || i==16) {
+			    			KullaniciPage.add(rs.getString(i));
+			        }
+			    }
+			    return KullaniciPage;
+				}}
+				return null;
+				
+			}
+ 
             public void Delete(String _TELEPHONE,String _EMAIL) throws SQLException {
            
             	Connection();
@@ -202,7 +372,27 @@ public class KanVerici {
         	else 
         		System.out.println("there is no person to (Delete)");
         }
-        
+       public void UpdatePerson (String Email,String telephone,String fname,String lname,String userPassword,int age,String city,String town ) throws SQLException {
+        	Connection();
+        	stmt = con.createStatement();
+        	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
+        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
+        }
+       
+       public void UpdateHospital (String Email,String bloodtype,String bloodtypenum ) throws SQLException {
+          	Connection();
+          	stmt = con.createStatement();
+          	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
+          	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"'  WHERE email='"+Email+"'");
+          }
+       
+       public void UpdateBus (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
+       	Connection();
+       	stmt = con.createStatement();
+       	System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
+       	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
+       }
+       
         private void Insert(int flag) throws SQLException {
         	
         	Connection();
@@ -251,19 +441,7 @@ public class KanVerici {
         
 		public static void main(String [] args) throws SQLException {
            
-	 // REMARK! :Sql le baðladýðýn her class da olmak zorunda !!		
-	/* YORUM SATIRINI AÇMAYINIZ
-			KanVerici person = new KanVerici (1,"5076031496","asuman@gmail.com","Asuman","Rana","Acartürk","asuman123"
-					,"ABRh+","Çankaya","Ankara",1,'F',21);
-			KanVerici person = new KanVerici (2,"3122126666","GMKDevletHastanesi@gmail.com","Gazi Mustafa Kemal Devlet Hastanesi","gmk123"
-					,"0Rh+ 0Rh- ARh+ ARh- BRh+ BRh- ABRh+ ABRh-","Çankaya","Ankara","21 45 3 4 0 41 3 4");
-					KanVerici person = new KanVerici (3,"3122126666","kizilaymeydan@gmail.com","Kýzýlay Meydan KAB","kizilay123"
-					,"0Rh+ 0Rh- ARh+ ARh- BRh+ BRh- ABRh+ ABRh-","Kýzýlay","Ankara","06ET653","1 5 3 4 0 1 3 4","Atatürk Bulvarý Kýzýlay AVM Önü" );
-        KanVerici person = new KanVerici ();
-			person.SearchBlood("0Rh+");
-			person.Delete("3122126666", "kizilaymeydan@gmail.com");
-        */
-			
+			CreateBloodTable();
 
 			}
 }

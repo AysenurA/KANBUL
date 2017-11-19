@@ -48,8 +48,8 @@ INSERT into KAN_VERICI values ('3','');
 		try {
 
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://localhost/KANBUL", "postgres",
-					"123456");
+					"jdbc:postgresql://localhost/KanBul", "postgres",
+					"Aybike_95");
 			
 
 

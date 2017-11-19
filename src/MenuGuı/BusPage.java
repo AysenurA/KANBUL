@@ -3,6 +3,8 @@ package MenuGuý;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import sqlTable.KanVerici;
+
 public class BusPage {
 
 	private JFrame frame;
@@ -18,15 +22,55 @@ public class BusPage {
 	private JTextField Plaka_textField;
 	private JTextField UniteSayisi_textField;
 	private JTextField OtobusunBulunduguAdres_textField;
+	JRadioButton ZeroPos_RadioButton;
+	JRadioButton ZeroNeg_RadioButton;
+	JRadioButton APos_RadioButton;
+	JRadioButton ANeg_RadioButton;
+	JRadioButton BPos_RadioButton;
+	JRadioButton BNeg_RadioButton;
+	JRadioButton ABPos_RadioButton;
+	JRadioButton ABNeg_RadioButton;
+	JComboBox<String> OtobusunBulunduguIlce_List;
+	JComboBox<String> OtobusunBulunduguIl_List;
+	public static String otobusEmail="";
 
 	/**
 	 * Launch the application.
 	 */
-	public void busMemberScreen(String kullaniciAdi,String sifre) { // Uye ile ilgili spesifik bilgiler ekrana verilecek
+	public void busMemberScreen(String kullaniciAdi,ArrayList<String> kullaniciPage) { // Uye ile ilgili spesifik bilgiler ekrana verilecek
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					BusPage window = new BusPage();
+					otobusEmail = kullaniciAdi;
+					
+					window.KizilayOtobusAdi_textField.setText(kullaniciPage.get(0));
+					window.OtobusunBulunduguIl_List.setSelectedItem(kullaniciPage.get(1));
+					window.OtobusunBulunduguIlce_List.setSelectedItem(kullaniciPage.get(2));
+					String bloodType = kullaniciPage.get(3);
+					window.Plaka_textField.setText(kullaniciPage.get(4));
+					window.UniteSayisi_textField.setText(kullaniciPage.get(5));
+					window.OtobusunBulunduguAdres_textField.setText(kullaniciPage.get(6));
+					
+					
+					if(bloodType.contains("0Rh+"))
+						window.ZeroPos_RadioButton.setSelected(true);
+					if(bloodType.contains("0Rh-"))
+						window.ZeroNeg_RadioButton.setSelected(true);
+					if(bloodType.contains("ARh+"))
+						window.APos_RadioButton.setSelected(true);
+					if(bloodType.contains("ARh-"))
+						window.ANeg_RadioButton.setSelected(true);
+					if(bloodType.contains("BRh+"))
+						window.BPos_RadioButton.setSelected(true);
+					if(bloodType.contains("BRh-"))
+						window.BNeg_RadioButton.setSelected(true);
+					if(bloodType.contains("ABRh+"))
+						window.ABPos_RadioButton.setSelected(true);
+					if(bloodType.contains("ABRh-"))
+						window.ABNeg_RadioButton.setSelected(true);
+					
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,12 +134,12 @@ public class BusPage {
 		frame.getContentPane().add(UniteSayisi_textField);
 		UniteSayisi_textField.setColumns(10);
 		
-		JComboBox<String> OtobusunBulunduguIl_List = new JComboBox<>();
+		OtobusunBulunduguIl_List = new JComboBox<>();
 		OtobusunBulunduguIl_List.setBounds(197, 60, 113, 20);
 		OtobusunBulunduguIl_List.addItem("Ankara");
 		frame.getContentPane().add(OtobusunBulunduguIl_List);
 		
-		JComboBox<String> OtobusunBulunduguIlce_List = new JComboBox<>();
+		OtobusunBulunduguIlce_List = new JComboBox<>();
 		OtobusunBulunduguIlce_List.setBounds(322, 60, 113, 20);
 		OtobusunBulunduguIlce_List.addItem("Akyurt");
 		OtobusunBulunduguIlce_List.addItem("Altýndað");
@@ -141,35 +185,35 @@ public class BusPage {
 		Geri_Button.setBounds(49, 243, 83, 25);
 		frame.getContentPane().add(Geri_Button);
 		
-		JRadioButton ZeroPos_RadioButton = new JRadioButton("0Rh+");
+		ZeroPos_RadioButton = new JRadioButton("0Rh+");
 		ZeroPos_RadioButton.setBounds(197, 119, 62, 23);
 		frame.getContentPane().add(ZeroPos_RadioButton);
 		
-		JRadioButton ZeroNeg_RadioButton = new JRadioButton("0Rh-");
+		ZeroNeg_RadioButton = new JRadioButton("0Rh-");
 		ZeroNeg_RadioButton.setBounds(269, 119, 62, 23);
 		frame.getContentPane().add(ZeroNeg_RadioButton);
 		
-		JRadioButton APos_RadioButton = new JRadioButton("ARh+");
+		APos_RadioButton = new JRadioButton("ARh+");
 		APos_RadioButton.setBounds(344, 119, 62, 23);
 		frame.getContentPane().add(APos_RadioButton);
 		
-		JRadioButton ANeg_RadioButton = new JRadioButton("ARh-");
+		ANeg_RadioButton = new JRadioButton("ARh-");
 		ANeg_RadioButton.setBounds(49, 145, 62, 23);
 		frame.getContentPane().add(ANeg_RadioButton);
 		
-		JRadioButton BPos_RadioButton = new JRadioButton("BRh+");
+		BPos_RadioButton = new JRadioButton("BRh+");
 		BPos_RadioButton.setBounds(121, 145, 62, 23);
 		frame.getContentPane().add(BPos_RadioButton);
 		
-		JRadioButton BNeg_RadioButton = new JRadioButton("BRh-");
+		 BNeg_RadioButton = new JRadioButton("BRh-");
 		BNeg_RadioButton.setBounds(197, 146, 62, 23);
 		frame.getContentPane().add(BNeg_RadioButton);
 		
-		JRadioButton ABPos_RadioButton = new JRadioButton("ABRh+");
+		 ABPos_RadioButton = new JRadioButton("ABRh+");
 		ABPos_RadioButton.setBounds(269, 146, 70, 23);
 		frame.getContentPane().add(ABPos_RadioButton);
 		
-		JRadioButton ABNeg_RadioButton = new JRadioButton("ABRh-");
+		 ABNeg_RadioButton = new JRadioButton("ABRh-");
 		ABNeg_RadioButton.setBounds(344, 145, 70, 23);
 		frame.getContentPane().add(ABNeg_RadioButton);
 		
@@ -203,9 +247,22 @@ public class BusPage {
 				String address = OtobusunBulunduguAdres_textField.getText().toString();
 				
 				// Bilgiler UPDATE edilecek veritabanýnda
+				
+				 try {
+						Update(otobusEmail,city, town, bloodType,plaka, bloodTypeNum,address);
+						otobusEmail="";
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			}
 		});
 		Kaydet_Button.setBounds(296, 244, 139, 23);
 		frame.getContentPane().add(Kaydet_Button);
-		
-	}}
+		}
+	
+		public void Update (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
+			KanVerici otobus = new KanVerici ();
+			otobus.UpdateBus(Email,city, town, bloodtype,plate, bloodtypenum,address);
+		}
+	}
