@@ -87,8 +87,8 @@ import java.util.logging.Logger;
 					try {
 				
 						con = DriverManager.getConnection(
-								"jdbc:postgresql://localhost/KanBul", "postgres",
-								"Aybike_95");
+								"jdbc:postgresql://localhost/KANBUL", "postgres",
+								"123456");
 				
 					} catch (SQLException e) {
 				
