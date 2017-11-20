@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import sqlTable.KanVerici;
+import sqlTable.Rapor;
 
 
 @SuppressWarnings("unused")
@@ -25,9 +27,11 @@ public class EnrollPage {
 	private JTextField TelNo_textField;
 	private JTextField Email_textField;
 	private JTextField Sifre_textField;
+	ArrayList<Boolean> kanBagisFormu=new ArrayList<Boolean>();
 	public KanVerici person =new KanVerici();
 	public ErrorPage window=new ErrorPage();
-	private boolean dogruGiris=true;
+	public Rapor rapor;
+	public boolean raporuDoldurunuzGirildi=false;
 	/**
 	 * Launch the application.
 	 */
@@ -121,24 +125,12 @@ public class EnrollPage {
 		Ilce_Label.setBounds(40, 211, 92, 14);
 		frame.getContentPane().add(Ilce_Label);
 		
-		JLabel KronikHastalik_Label = new JLabel("Herhangi bir kronik hastal\u0131\u011F\u0131n\u0131z var m\u0131 ?");
-		KronikHastalik_Label.setBounds(40, 236, 291, 14);
-		frame.getContentPane().add(KronikHastalik_Label);
-		
-		JRadioButton Evet_RadioButton = new JRadioButton("Evet");
-		Evet_RadioButton.setBounds(40, 260, 60, 23);
-		frame.getContentPane().add(Evet_RadioButton);
-		
-		JRadioButton Hayir_RadioButton = new JRadioButton("Hay\u0131r");
-		Hayir_RadioButton.setBounds(118, 260, 60, 23);
-		frame.getContentPane().add(Hayir_RadioButton);
-		
 		JLabel Sifre_Label = new JLabel("\u015Eifre:");
-		Sifre_Label.setBounds(40, 309, 92, 14);
+		Sifre_Label.setBounds(40, 236, 92, 14);
 		frame.getContentPane().add(Sifre_Label);
 		
 		Sifre_textField = new JTextField();
-		Sifre_textField.setBounds(191, 306, 140, 20);
+		Sifre_textField.setBounds(191, 236, 140, 20);
 		frame.getContentPane().add(Sifre_textField);
 		Sifre_textField.setColumns(10);
 		
@@ -208,87 +200,51 @@ public class EnrollPage {
 			String lname = Soyad_textField.getText().toString();
 			String userPassword = Sifre_textField.getText().toString();
 			char cinsiyet = (Cinsiyet_List.getSelectedItem().toString()).charAt(0);
-			int age=0 ;
-			//if(fname)
 			if(cinsiyet =='E') {
 				cinsiyet ='M';
 			}
 			else
 				cinsiyet ='F';
 			// E ise MALE , K ise FEMALE check et.
-			for (int i = 0; i < Yas_textField.getText().toString().length(); i++) {
-		        char charAtYas = Yas_textField.getText().toString().charAt(i);
-		        if (!Character.isDigit(charAtYas)) {
-		        	window.newScreen("Hatalý Yaþ girdiniz...");
-		        	dogruGiris=false;
-		            break;
-		            }
-		        else
-		           age = Integer.parseInt(Yas_textField.getText().toString());
-		    }
-			
+			int age = Integer.parseInt(Yas_textField.getText().toString());
 			String city = Il_List.getSelectedItem().toString();
 			String town = Ilce_List.getSelectedItem().toString();
-			int report = Evet_RadioButton.isSelected() ? 0 : 1	;
-			String bloodType = KanGrubu_List.getSelectedItem().toString();
 			
+			System.out.println(kanBagisFormu.toString()+"Enroll Page Action Performed");
+			
+			if(cinsiyet=='M') {
+				kanBagisFormu.set(10, false);
+			}
+			boolean report=true;
+			if(kanBagisFormu.contains(true)) {
+			report = false;
+					//Evet_RadioButton.isSelected() ? 0 : 1	;	
+			}
+			System.out.println(kanBagisFormu.toString());
+			
+			
+			String bloodType = KanGrubu_List.getSelectedItem().toString();
+			int report_int=0;
+			if(report==true) 
+				report_int = 1;
+				
+		
 			
 			//  INSERT edilip veri tabanýna girilir üye olan kiþinin bilgileri
 			
 			
 			try {
-				if(email.contains("@")&&(email.contains(".com"))){
-				  if(person.Exist( email)) {
+				if(person.Exist(email)) {
 					window.newScreen("Bu email adresi ile daha önce kayýt olundu.");
 				}
-				  
 				else
 				{
-					for (int i = 0; i < fname.length(); i++) {
-				        char charAtFname = fname.charAt(i);
-				        if (!Character.isLetter(charAtFname)) {
-				        	window.newScreen("Hatalý Ad girdiniz...");
-				        	dogruGiris=false;
-				            break;
-				            }
-				    }
-					for (int i = 0; i < lname.length(); i++) {
-				        char charAtLname = lname.charAt(i);
-				        if (!Character.isLetter(charAtLname)) {
-				        	window.newScreen("Hatalý Soyad girdiniz...");
-				        	dogruGiris=false;
-				            break;
-				            }
-				    }
+					Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report_int,cinsiyet,age);
+					rapor=new Rapor();
+					if(raporuDoldurunuzGirildi==true)
+					rapor.Insert(telephone, email, report, kanBagisFormu);
 					
-
-					if(telephone.length()<=10){
-					for (int i = 0; i < telephone.length(); i++) {
-				        char charAtTel = telephone.charAt(i);
-				        if (!Character.isDigit(charAtTel)) {
-				        	window.newScreen("Hatalý Telefon girdiniz...");
-				        	dogruGiris=false;
-				            break;
-				            }
-				    }
-					
-					}
-					else{
-						 window.newScreen("Hatalý Telefon girdiniz...");
-						 dogruGiris=false;
-						 }
-					
-					if(!(age<=110)){
-							 window.newScreen("Hatalý Yaþ girdiniz...");
-							 dogruGiris=false;
-							 }
-					
-					if(dogruGiris==true){
-					Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report,cinsiyet,age);}
-				}  
 				}
-				else
-					  window.newScreen("Hatalý Email girdiniz...");
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -311,18 +267,31 @@ public class EnrollPage {
 		btnGeri.setBounds(40, 357, 60, 23);
 		frame.getContentPane().add(btnGeri);
 		
+		JButton btnRapor = new JButton("L\u00FCtfen Raporu Doldurunuz...");
+		btnRapor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReportPage reportPage=new ReportPage();
+				kanBagisFormu=reportPage.newScreen();
+				raporuDoldurunuzGirildi=true;
+				
+			}
+		});
+		btnRapor.setBounds(40, 279, 230, 23);
+		frame.getContentPane().add(btnRapor);
+		
 		
 	}
 	public void Insert(int flagNum,String telephone,String email,String fname,String lname,String userPassword, String bloodType,String town,String city,int report,char cinsiyet,int age) {
 		
 		
 		try {
-			 if (!person.Exist(telephone,email)){
-			      person = new KanVerici(flagNum,telephone,email,fname," ",lname,userPassword,bloodType,town,city,report,cinsiyet,age);}
-			 
+			 if (!person.Exist(telephone,email)) {
+				 	person = new KanVerici(flagNum,telephone,email,fname," ",lname,userPassword,bloodType,town,city,report,cinsiyet,age);
+			 }
+			 else {
 		    // ayný kiþi varsa uyarý mesajý çýkýcaktýr.
-			 else
-			   System.out.println("Kiþi Mevcut From enrollPage");
+			 System.out.println("Kiþi Mevcut From enrollPage");
+			 }
 		} catch (SQLException e1) {
 			System.out.println("EnrollPage INSERT exception");
 			e1.getMessage();

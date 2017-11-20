@@ -52,8 +52,8 @@ public class Rapor {
 		try {
 	
 			con = DriverManager.getConnection(
-					"jdbc:postgresql://localhost/KANBUL", "postgres",
-					"123456");
+					"jdbc:postgresql://localhost/Kanbul", "postgres",
+					"1q2w3e4r");
 			
 	
 	
@@ -79,7 +79,7 @@ public class Rapor {
 	       	}
 	   return s;
 	}
-	public ArrayList Search(String email) throws SQLException {
+	public ArrayList<Boolean> Search(String email) throws SQLException {
 		Connection();
 		ArrayList<Boolean>form=new ArrayList<Boolean>();
 	        pst = con.prepareStatement("SELECT * FROM \"rapor\" WHERE email='"+email+"'");
@@ -116,12 +116,19 @@ public class Rapor {
 	    String s=Exist(email);
 		if(s!=null) { // st.executeUpdate(UPDATE table SET column1 = value1, column2 = value2 ,... WHERE condition;
 			Statement st = con.createStatement();
+			System.out.println("UPDATE rapor SET "
+					+"\"1\"="+"'"+kan_bagis.get(0)+"'"+",\"2\"="+"'"+kan_bagis.get(1)+"'"+",\"3\"="+"'"+kan_bagis.get(2)+"'"+",\"4\"="+"'"+kan_bagis.get(3)+"'"+",\"5\"="+"'"+kan_bagis.get(4)+"'"+",\"6\"="+"'"+kan_bagis.get(5)+"'"+",\"7\"="+"'"+kan_bagis.get(6)+"'"+",\"8\"="+"'"+kan_bagis.get(7)+"'"+",\"9\"="+"'"+kan_bagis.get(8)+"'"+",\"10\"="+"'"+kan_bagis.get(9)+"'"+",\"11\"="+"'"+kan_bagis.get(10)+"'"+",\"12\"="+"'"+kan_bagis.get(11)
+					+"'"+",\"13\"="+"'"+kan_bagis.get(12)+"'"+",\"14\"="+"'"+kan_bagis.get(13)+"'"+",\"15\"="+"'"+kan_bagis.get(14)+"'"+",\"16\"="+"'"+kan_bagis.get(15)+"'"+",\"17\"="+"'"+kan_bagis.get(16)+"'"+",\"18\"="+"'"+kan_bagis.get(17)+"'"+",\"19\"="+"'"+kan_bagis.get(18)+"'"+",\"20\"="+"'"+kan_bagis.get(19)+"'"+",\"21\"="+"'"+kan_bagis.get(20)+"'"+",\"22\"="+"'"+kan_bagis.get(21)+"'"+",\"23\"="+"'"+kan_bagis.get(22)
+					+"'"+",\"24\"="+"'"+kan_bagis.get(23)+"'"+",\"25\"="+"'"+kan_bagis.get(24)+"'"+",\"26\"="+"'"+kan_bagis.get(25)+"'"+",\"27\"="+"'"+kan_bagis.get(26)+"'"+",\"28\"="+"'"+kan_bagis.get(27)+"'"+",\"29\"="+"'"+kan_bagis.get(28)+"'"+",\"30\"="+"'"+kan_bagis.get(29)+"'"+",\"31\"="+"'"+kan_bagis.get(30)+"'"+",\"32\"="+"'"+kan_bagis.get(31)+"'"+",\"33\"="+"'"+kan_bagis.get(32)+"'"+",\"34\"="+"'"+kan_bagis.get(33)
+					+"'"+" WHERE email="+"'"+email+"'"+";");
 			st.executeUpdate("UPDATE rapor SET "
 			+"\"1\"="+"'"+kan_bagis.get(0)+"'"+",\"2\"="+"'"+kan_bagis.get(1)+"'"+",\"3\"="+"'"+kan_bagis.get(2)+"'"+",\"4\"="+"'"+kan_bagis.get(3)+"'"+",\"5\"="+"'"+kan_bagis.get(4)+"'"+",\"6\"="+"'"+kan_bagis.get(5)+"'"+",\"7\"="+"'"+kan_bagis.get(6)+"'"+",\"8\"="+"'"+kan_bagis.get(7)+"'"+",\"9\"="+"'"+kan_bagis.get(8)+"'"+",\"10\"="+"'"+kan_bagis.get(9)+"'"+",\"11\"="+"'"+kan_bagis.get(10)+"'"+",\"12\"="+"'"+kan_bagis.get(11)
 			+"'"+",\"13\"="+"'"+kan_bagis.get(12)+"'"+",\"14\"="+"'"+kan_bagis.get(13)+"'"+",\"15\"="+"'"+kan_bagis.get(14)+"'"+",\"16\"="+"'"+kan_bagis.get(15)+"'"+",\"17\"="+"'"+kan_bagis.get(16)+"'"+",\"18\"="+"'"+kan_bagis.get(17)+"'"+",\"19\"="+"'"+kan_bagis.get(18)+"'"+",\"20\"="+"'"+kan_bagis.get(19)+"'"+",\"21\"="+"'"+kan_bagis.get(20)+"'"+",\"22\"="+"'"+kan_bagis.get(21)+"'"+",\"23\"="+"'"+kan_bagis.get(22)
 			+"'"+",\"24\"="+"'"+kan_bagis.get(23)+"'"+",\"25\"="+"'"+kan_bagis.get(24)+"'"+",\"26\"="+"'"+kan_bagis.get(25)+"'"+",\"27\"="+"'"+kan_bagis.get(26)+"'"+",\"28\"="+"'"+kan_bagis.get(27)+"'"+",\"29\"="+"'"+kan_bagis.get(28)+"'"+",\"30\"="+"'"+kan_bagis.get(29)+"'"+",\"31\"="+"'"+kan_bagis.get(30)+"'"+",\"32\"="+"'"+kan_bagis.get(31)+"'"+",\"33\"="+"'"+kan_bagis.get(32)+"'"+",\"34\"="+"'"+kan_bagis.get(33)
 			+"'"+" WHERE email="+"'"+email+"'"+";");
+			
 			System.out.println("RAPOR SÝSTEMDE GÜNCELLENDÝ");
+			
 		}
 		else
 		{		          
