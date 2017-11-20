@@ -27,6 +27,7 @@ public class EnrollPage {
 	private JTextField Sifre_textField;
 	public KanVerici person =new KanVerici();
 	public ErrorPage window=new ErrorPage();
+	private boolean dogruGiris=true;
 	/**
 	 * Launch the application.
 	 */
@@ -207,13 +208,25 @@ public class EnrollPage {
 			String lname = Soyad_textField.getText().toString();
 			String userPassword = Sifre_textField.getText().toString();
 			char cinsiyet = (Cinsiyet_List.getSelectedItem().toString()).charAt(0);
+			int age=0 ;
+			//if(fname)
 			if(cinsiyet =='E') {
 				cinsiyet ='M';
 			}
 			else
 				cinsiyet ='F';
 			// E ise MALE , K ise FEMALE check et.
-			int age = Integer.parseInt(Yas_textField.getText().toString());
+			for (int i = 0; i < Yas_textField.getText().toString().length(); i++) {
+		        char charAtYas = Yas_textField.getText().toString().charAt(i);
+		        if (!Character.isDigit(charAtYas)) {
+		        	window.newScreen("Hatalý Yaþ girdiniz...");
+		        	dogruGiris=false;
+		            break;
+		            }
+		        else
+		           age = Integer.parseInt(Yas_textField.getText().toString());
+		    }
+			
 			String city = Il_List.getSelectedItem().toString();
 			String town = Ilce_List.getSelectedItem().toString();
 			int report = Evet_RadioButton.isSelected() ? 0 : 1	;
@@ -224,13 +237,58 @@ public class EnrollPage {
 			
 			
 			try {
-				if(person.Exist( email)) {
+				if(email.contains("@")&&(email.contains(".com"))){
+				  if(person.Exist( email)) {
 					window.newScreen("Bu email adresi ile daha önce kayýt olundu.");
 				}
+				  
 				else
 				{
-					Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report,cinsiyet,age);
+					for (int i = 0; i < fname.length(); i++) {
+				        char charAtFname = fname.charAt(i);
+				        if (!Character.isLetter(charAtFname)) {
+				        	window.newScreen("Hatalý Ad girdiniz...");
+				        	dogruGiris=false;
+				            break;
+				            }
+				    }
+					for (int i = 0; i < lname.length(); i++) {
+				        char charAtLname = lname.charAt(i);
+				        if (!Character.isLetter(charAtLname)) {
+				        	window.newScreen("Hatalý Soyad girdiniz...");
+				        	dogruGiris=false;
+				            break;
+				            }
+				    }
+					
+
+					if(telephone.length()<=10){
+					for (int i = 0; i < telephone.length(); i++) {
+				        char charAtTel = telephone.charAt(i);
+				        if (!Character.isDigit(charAtTel)) {
+				        	window.newScreen("Hatalý Telefon girdiniz...");
+				        	dogruGiris=false;
+				            break;
+				            }
+				    }
+					
+					}
+					else{
+						 window.newScreen("Hatalý Telefon girdiniz...");
+						 dogruGiris=false;
+						 }
+					
+					if(!(age<=110)){
+							 window.newScreen("Hatalý Yaþ girdiniz...");
+							 dogruGiris=false;
+							 }
+					
+					if(dogruGiris==true){
+					Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report,cinsiyet,age);}
+				}  
 				}
+				else
+					  window.newScreen("Hatalý Email girdiniz...");
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -259,10 +317,12 @@ public class EnrollPage {
 		
 		
 		try {
-			 if (!person.Exist(telephone,email))
-			person = new KanVerici(flagNum,telephone,email,fname," ",lname,userPassword,bloodType,town,city,report,cinsiyet,age);
+			 if (!person.Exist(telephone,email)){
+			      person = new KanVerici(flagNum,telephone,email,fname," ",lname,userPassword,bloodType,town,city,report,cinsiyet,age);}
+			 
 		    // ayný kiþi varsa uyarý mesajý çýkýcaktýr.
-			 System.out.println("Kiþi Mevcut From enrollPage");
+			 else
+			   System.out.println("Kiþi Mevcut From enrollPage");
 		} catch (SQLException e1) {
 			System.out.println("EnrollPage INSERT exception");
 			e1.getMessage();
