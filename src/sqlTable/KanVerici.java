@@ -48,6 +48,7 @@ public class KanVerici {
         public String sql=null;
         public int columnCount;
         public int columnCount2;
+        public int max=0;
         BloodTypeResultPage resultPage = new  BloodTypeResultPage();
         ArrayList<String> resultArray  =new ArrayList<String>();
         ArrayList<String> resultArrayHospital  =new ArrayList<String>();
@@ -468,7 +469,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
        	ErrorPage window = new ErrorPage();
 		window.newScreen("Otobüs baþarýyla güncellendi");
        }
-       public int findBestBus() throws SQLException {
+       public String findBestBus() throws SQLException {
     	   Connection();
     	   pst = con.prepareStatement("SELECT fname,plaka,city,town,bloodtypenum FROM \"kan_verici\" WHERE flagnum=3");
 	       rs = pst.executeQuery();
@@ -478,12 +479,14 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
 	        		  TotalBloodInfo.add(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4));
 	            }
 	          }
-	          int max=0;
+	          int position=0;
 	          for(int i=0;i<TotalBloodNumber.size();i++) {
-	        	  if(max<TotalBloodNumber.get(i))
+	        	  if(max<TotalBloodNumber.get(i)) {
 	        		  max=TotalBloodNumber.get(i);
+	        		  position=i;
+	        	  }
 	          }
-	          return max;
+	          return TotalBloodInfo.get(position);
 	          
        }
        

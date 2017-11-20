@@ -37,12 +37,12 @@ public class BusPage {
 	public static String otobusEmail="";
 	private JLabel lblNewLabel;
 	private JLabel ayýnOtobüsAdý_label;
-	private JTextField textField;
+	private JTextField otobusAdý;
 	private JLabel lblNewLabel_1;
-	private JTextField textField_1;
+	private JTextField plaka;
 	private JLabel ayýnOtobüsüPlaka_Label;
 	private JLabel ayinOtobüsililçe_Label;
-	private JTextField textField_2;
+	private JTextField il;
 
 	/**
 	 * Launch the application.
@@ -280,19 +280,21 @@ public class BusPage {
 		ayýnOtobüsAdý_label.setBounds(603, 149, 113, 14);
 		frame.getContentPane().add(ayýnOtobüsAdý_label);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(749, 146, 149, 20);
-		frame.getContentPane().add(textField);
+		otobusAdý = new JTextField();
+		otobusAdý.setColumns(10);
+		otobusAdý.setBounds(749, 146, 149, 20);
+		
+		frame.getContentPane().add(otobusAdý);
 		
 		lblNewLabel_1 = new JLabel("En \u00C7ok Kan Toplayan Otob\u00FCs");
 		lblNewLabel_1.setBounds(664, 119, 199, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(748, 178, 150, 20);
-		frame.getContentPane().add(textField_1);
+		plaka = new JTextField();
+		plaka.setColumns(10);
+		plaka.setBounds(748, 178, 150, 20);
+		
+		frame.getContentPane().add(plaka);
 		
 		ayýnOtobüsüPlaka_Label = new JLabel("Plaka:");
 		ayýnOtobüsüPlaka_Label.setBounds(603, 181, 113, 14);
@@ -302,14 +304,38 @@ public class BusPage {
 		ayinOtobüsililçe_Label.setBounds(603, 221, 156, 14);
 		frame.getContentPane().add(ayinOtobüsililçe_Label);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(748, 218, 150, 20);
-		frame.getContentPane().add(textField_2);
+		il = new JTextField();
+		il.setColumns(10);
+		il.setBounds(748, 218, 150, 20);
+		frame.getContentPane().add(il);
+		try {
+			String bestBusInfo=findBestBus();
+			String ad=bestBusInfo.substring(0,bestBusInfo.indexOf(" "));
+			otobusAdý.setText(ad);
+			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf(" ")+1);
+			String plaka1=bestBusInfo.substring(0,bestBusInfo.indexOf(" "));
+			plaka.setText(plaka1);
+			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf(" ")+1);
+			String il_ilce=bestBusInfo;
+			il.setText(il_ilce);
+		
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		}
 	
 		public void Update (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
 			KanVerici otobus = new KanVerici ();
 			otobus.UpdateBus(Email,city, town, bloodtype,plate, bloodtypenum,address);
 		}
+		public String findBestBus() throws SQLException {
+			     KanVerici bus = new KanVerici();
+			     
+			    String bestBus="";
+				return bestBus =bus.findBestBus();
+			     
+	        	  }
+	          
+		
 	}
