@@ -14,6 +14,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import sqlTable.KanVerici;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class BusPage {
 
@@ -33,6 +35,14 @@ public class BusPage {
 	JComboBox<String> OtobusunBulunduguIlce_List;
 	JComboBox<String> OtobusunBulunduguIl_List;
 	public static String otobusEmail="";
+	private JLabel lblNewLabel;
+	private JLabel ayýnOtobüsAdý_label;
+	private JTextField textField;
+	private JLabel lblNewLabel_1;
+	private JTextField textField_1;
+	private JLabel ayýnOtobüsüPlaka_Label;
+	private JLabel ayinOtobüsililçe_Label;
+	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -91,7 +101,8 @@ public class BusPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 476, 317);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\red_bus_logo.jpg"));
+		frame.setBounds(100, 100, 924, 405);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -259,6 +270,42 @@ public class BusPage {
 		});
 		Kaydet_Button.setBounds(296, 244, 139, 23);
 		frame.getContentPane().add(Kaydet_Button);
+		
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\User\\Desktop\\otobus.png"));
+		lblNewLabel.setBounds(674, 12, 139, 92);
+		frame.getContentPane().add(lblNewLabel);
+		
+		ayýnOtobüsAdý_label = new JLabel("K\u0131z\u0131lay Otob\u00FCs\u00FC Ad\u0131:");
+		ayýnOtobüsAdý_label.setBounds(603, 149, 113, 14);
+		frame.getContentPane().add(ayýnOtobüsAdý_label);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(749, 146, 149, 20);
+		frame.getContentPane().add(textField);
+		
+		lblNewLabel_1 = new JLabel("En \u00C7ok Kan Toplayan Otob\u00FCs");
+		lblNewLabel_1.setBounds(664, 119, 199, 14);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(748, 178, 150, 20);
+		frame.getContentPane().add(textField_1);
+		
+		ayýnOtobüsüPlaka_Label = new JLabel("Plaka:");
+		ayýnOtobüsüPlaka_Label.setBounds(603, 181, 113, 14);
+		frame.getContentPane().add(ayýnOtobüsüPlaka_Label);
+		
+		ayinOtobüsililçe_Label = new JLabel("Otob\u00FCs\u00FCn Bulundu\u011Fu \u0130l/\u0130l\u00E7e :");
+		ayinOtobüsililçe_Label.setBounds(603, 221, 156, 14);
+		frame.getContentPane().add(ayinOtobüsililçe_Label);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(748, 218, 150, 20);
+		frame.getContentPane().add(textField_2);
 		}
 	
 		public void Update (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 /*
 To do list :
 * Update methods
@@ -23,7 +24,9 @@ To do list :
 			public  PreparedStatement pst = null;
 			public  ResultSet rs = null;
 			public KanVerici person=null;
-			
+		    public KanArayan() {
+		    	
+		    }
 			public KanArayan(String tel,String fname,String mname,String lname,String bloodT,String hospitalC,String hospitalT) {
 				
 				
@@ -67,8 +70,8 @@ To do list :
 				try {
 			
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/Kanbul", "postgres",
-							"1q2w3e4r");
+							"jdbc:postgresql://localhost/KanBul", "postgres",
+							"Aybike_95");
 					
 			
 			
@@ -115,11 +118,13 @@ To do list :
 				 * 
 				 */
 			}
-			public void Search(String BloodType) throws SQLException {
+			public void Search(String BloodType,String HospitalName) throws SQLException {
 				
-				Connection();
+			//	Connection();
 				person = new KanVerici();
-				person.SearchBlood(BloodType);
+				System.out.println("Search from kan arayan");
+				person.SearchBlood(BloodType, HospitalName);
+			
 				
 			}
 			
