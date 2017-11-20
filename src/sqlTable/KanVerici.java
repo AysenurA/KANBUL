@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import MenuGuý.BloodTypeResultPage;
+import MenuGuý.ErrorPage;
 
 public class KanVerici {
 	/*
@@ -126,11 +127,11 @@ public class KanVerici {
 				try {
 
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KanBul", "postgres",
-						"Aybike_95");
+							"jdbc:postgresql://localhost/KANBUL", "postgres",
+							"123456");
 					con2 = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KanBul", "postgres",
-						"Aybike_95");
+							"jdbc:postgresql://localhost/KANBUL", "postgres",
+							"123456");
 				
 			} catch (SQLException e) {
 
@@ -444,20 +445,26 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         	stmt = con.createStatement();
         	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
         	stmt.executeUpdate("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
-        }
+        	ErrorPage window = new ErrorPage();
+			window.newScreen("Kiþi baþarýyla güncellendi");
+       }
        
        public void UpdateHospital (String Email,String bloodtype,String bloodtypenum ) throws SQLException {
           	Connection();
           	stmt = con.createStatement();
           	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
           	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"'  WHERE email='"+Email+"'");
-          }
+          	ErrorPage window = new ErrorPage();
+			window.newScreen("Hastane baþarýyla güncellendi");
+       }
        
        public void UpdateBus (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
        	Connection();
        	stmt = con.createStatement();
        	System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
+       	ErrorPage window = new ErrorPage();
+		window.newScreen("Otobüs baþarýyla güncellendi");
        }
        
         private void Insert(int flag) throws SQLException {
@@ -473,6 +480,8 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
            //     System.out.println(sql);
                 stmt.executeUpdate(sql);
                 stmt.close();
+                ErrorPage window = new ErrorPage();
+    			window.newScreen("Kiþi baþarýyla eklendi");
         	}
         	//
         	else if (flag==2)
@@ -486,6 +495,8 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		stmt.executeUpdate(sql);
         		
                 stmt.close();
+                ErrorPage window = new ErrorPage();
+    			window.newScreen("Hastane baþarýyla eklendi");
         	}
         	
         	else {
@@ -498,6 +509,8 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		stmt.executeUpdate(sql);
         		
                 stmt.close();
+                ErrorPage window = new ErrorPage();
+    			window.newScreen("Kýzýlay otobüsü baþarýyla eklendi");
         		
         	}
         	
