@@ -35,13 +35,13 @@ import java.util.ArrayList;
 	    	  String[] retval = new String[100];
 	    			
 	    	   Address=Address.toLowerCase();
-	    	   if(Address.contains("mahallesi") || Address.contains("mah.") ) {
+	    	   if(Address.contains("mahallesi") || Address.contains("mh.") ) {
 	    		   Address= Address.replace("mahallesi", "mahallesi,");
 	    		   Address= Address.replace("mah.", "mahallesi,");
 	    		//   System.out.println( Address);
 	    	   }
 	    	  
-	    	   if(Address.contains("sokak") || Address.contains("sok.") ) {
+	    	   if(Address.contains("sokak") || Address.contains("sk.") ) {
 	    		   Address= Address.replace("sokak", "sokak,");
 	    		   Address= Address.replace("sok.", "sokak,");
 	    		  // System.out.println( "sok:"+Address);
@@ -114,7 +114,7 @@ import java.util.ArrayList;
 		public static void main (String []args) throws IOException, URISyntaxException {
 			
 			GoogleMaps test = new GoogleMaps();
-			String a=test.GoogleMapsFindAddress( "Balkiraz Mahallesi Mamak Caddesi No:10 06620 Mamak/Ankara");
+			String a=test.GoogleMapsFindAddress( " Mamak Caddesi No:10 06620 Mamak/Ankara");
 	        test.ConnectMaps(a);
 			
 		}
