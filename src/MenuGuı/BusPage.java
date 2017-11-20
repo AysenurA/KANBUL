@@ -102,7 +102,7 @@ public class BusPage {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\red_bus_logo.jpg"));
-		frame.setBounds(100, 100, 924, 405);
+		frame.setBounds(100, 100, 948, 405);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -277,12 +277,12 @@ public class BusPage {
 		frame.getContentPane().add(lblNewLabel);
 		
 		ayýnOtobüsAdý_label = new JLabel("K\u0131z\u0131lay Otob\u00FCs\u00FC Ad\u0131:");
-		ayýnOtobüsAdý_label.setBounds(603, 149, 113, 14);
+		ayýnOtobüsAdý_label.setBounds(565, 145, 113, 14);
 		frame.getContentPane().add(ayýnOtobüsAdý_label);
 		
 		otobusAdý = new JTextField();
 		otobusAdý.setColumns(10);
-		otobusAdý.setBounds(749, 146, 149, 20);
+		otobusAdý.setBounds(749, 146, 173, 20);
 		
 		frame.getContentPane().add(otobusAdý);
 		
@@ -292,30 +292,30 @@ public class BusPage {
 		
 		plaka = new JTextField();
 		plaka.setColumns(10);
-		plaka.setBounds(748, 178, 150, 20);
+		plaka.setBounds(748, 178, 174, 20);
 		
 		frame.getContentPane().add(plaka);
 		
 		ayýnOtobüsüPlaka_Label = new JLabel("Plaka:");
-		ayýnOtobüsüPlaka_Label.setBounds(603, 181, 113, 14);
+		ayýnOtobüsüPlaka_Label.setBounds(565, 181, 113, 14);
 		frame.getContentPane().add(ayýnOtobüsüPlaka_Label);
 		
 		ayinOtobüsililçe_Label = new JLabel("Otob\u00FCs\u00FCn Bulundu\u011Fu \u0130l/\u0130l\u00E7e :");
-		ayinOtobüsililçe_Label.setBounds(603, 221, 156, 14);
+		ayinOtobüsililçe_Label.setBounds(565, 220, 156, 14);
 		frame.getContentPane().add(ayinOtobüsililçe_Label);
 		
 		il = new JTextField();
 		il.setColumns(10);
-		il.setBounds(748, 218, 150, 20);
+		il.setBounds(748, 218, 174, 20);
 		frame.getContentPane().add(il);
 		try {
 			String bestBusInfo=findBestBus();
-			String ad=bestBusInfo.substring(0,bestBusInfo.indexOf(" "));
+			String ad=bestBusInfo.substring(0,bestBusInfo.indexOf("$"));
 			otobusAdý.setText(ad);
-			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf(" ")+1);
-			String plaka1=bestBusInfo.substring(0,bestBusInfo.indexOf(" "));
+			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf("$")+1);
+			String plaka1=bestBusInfo.substring(0,bestBusInfo.indexOf("$"));
 			plaka.setText(plaka1);
-			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf(" ")+1);
+			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf("$")+1);
 			String il_ilce=bestBusInfo;
 			il.setText(il_ilce);
 		

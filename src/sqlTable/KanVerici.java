@@ -476,7 +476,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
 	          while (rs.next()) {
 	        	  if(!rs.getString(5).contains("null")) {
 	        		  TotalBloodNumber.add(totalBloodUnit(rs.getString(5)));
-	        		  TotalBloodInfo.add(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4));
+	        		  TotalBloodInfo.add(rs.getString(1)+"$"+rs.getString(2)+"$"+rs.getString(3)+" "+rs.getString(4));
 	            }
 	          }
 	          int position=0;
