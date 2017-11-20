@@ -26,11 +26,15 @@ public class BloodTypeResultPage {
 					//System.out.println(result.toString());
 					String s="";
 					String t="";
+					String mes="";
 					for(int i = 0 ; i<result.size();i++)
 					       s +="   "+ result.get(i)+"\n";
 					
-				           String mes ="UYARI : Hastaneden aldýðýnýz kan ünite sayýsý kadar kan baðýþý yaptýðýnýz takdirde bu hastanededen kan alabilirsiniz \n";
-					       t ="   "+ result2.get(0)+"\n";
+				          
+					     if(result2.size()>0) {
+				           t ="   "+ result2.get(0)+"\n";
+				            mes ="UYARI : Hastaneden aldýðýnýz kan ünite sayýsý kadar kan baðýþý yaptýðýnýz takdirde bu hastanededen kan alabilirsiniz \n";
+					     }
 					//System.out.println(t);
 					
 					window.textPane.setText(s+mes+t);
