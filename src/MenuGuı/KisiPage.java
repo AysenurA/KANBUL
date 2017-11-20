@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import sqlTable.KanVerici;
+import sqlTable.Rapor;
 
 public class KisiPage {
 
@@ -24,7 +25,11 @@ public class KisiPage {
 	private JTextField Sifre_textField;
 	JComboBox<String> Il_List = new JComboBox<String>();
 	JComboBox<String> Ilce_List = new JComboBox<String>();
+	ArrayList<Boolean> kanBagisFormu=new ArrayList<Boolean>();
 	public static String EmailKey="";
+	public Rapor rapor;
+	boolean saglýkRaporunaGirildi=false;
+
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +53,12 @@ public class KisiPage {
 					KisiPage window = new KisiPage();
 					//Select ile databaseden ilgili kiþinin verilieri getirilir
 					
+					System.out.println(kullaniciPage.toString());
 					
+					for (int i = 0 ; i<kullaniciPage.size() ; i++) {
+						if(kullaniciPage.get(i)==null)
+							kullaniciPage.set(i,"");
+					}	
 					window.Telefon_textField.setText(kullaniciPage.get(0));
 					EmailKey=kullaniciPage.get(1);
 					System.out.println(EmailKey);
@@ -58,7 +68,7 @@ public class KisiPage {
 					window.Sifre_textField.setText(kullaniciPage.get(5));
 					window.Il_List.setSelectedItem(kullaniciPage.get(7));
 					window.Ilce_List.setSelectedItem(kullaniciPage.get(8));
-					System.out.println(kullaniciPage.toString());
+					
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,32 +93,32 @@ public class KisiPage {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel Ad_Label = new JLabel("Ad:");
-		Ad_Label.setBounds(44, 30, 59, 23);
+		Ad_Label.setBounds(44, 11, 59, 23);
 		frame.getContentPane().add(Ad_Label);
 		
 		JLabel Soyad_Label = new JLabel("Soyad:");
-		Soyad_Label.setBounds(44, 64, 59, 23);
+		Soyad_Label.setBounds(44, 45, 59, 23);
 		frame.getContentPane().add(Soyad_Label);
 		
 		Ad_textField = new JTextField();
-		Ad_textField.setBounds(189, 30, 120, 23);
+		Ad_textField.setBounds(184, 11, 120, 23);
 		frame.getContentPane().add(Ad_textField);
 		Ad_textField.setColumns(10);
 		
 		JLabel Telefon_Label = new JLabel("Telefon:");
-		Telefon_Label.setBounds(44, 98, 59, 23);
+		Telefon_Label.setBounds(44, 79, 59, 23);
 		frame.getContentPane().add(Telefon_Label);
 		
 		JLabel Ililce_Label = new JLabel("\u0130l/\u0130l\u00E7e:");
-		Ililce_Label.setBounds(44, 132, 59, 23);
+		Ililce_Label.setBounds(44, 113, 59, 23);
 		frame.getContentPane().add(Ililce_Label);
 		
-				Il_List.setBounds(189, 133, 120, 20);
+				Il_List.setBounds(184, 114, 120, 20);
 		Il_List.addItem("Ankara");
 		frame.getContentPane().add(Il_List);
 		
 		
-		Ilce_List.setBounds(332, 133, 120, 20);
+		Ilce_List.setBounds(332, 114, 120, 20);
 		Ilce_List.addItem("Akyurt");
 		Ilce_List.addItem("Altýndað");
 		Ilce_List.addItem("Ayaþ");
@@ -138,12 +148,12 @@ public class KisiPage {
 		
 		Soyad_textField = new JTextField();
 		Soyad_textField.setColumns(10);
-		Soyad_textField.setBounds(189, 64, 120, 23);
+		Soyad_textField.setBounds(184, 45, 120, 23);
 		frame.getContentPane().add(Soyad_textField);
 		
 		Telefon_textField = new JTextField();
 		Telefon_textField.setColumns(10);
-		Telefon_textField.setBounds(189, 98, 120, 23);
+		Telefon_textField.setBounds(184, 79, 120, 23);
 		frame.getContentPane().add(Telefon_textField);
 		
 		JButton Kaydet_Button = new JButton("De\u011Fi\u015Ftir/Kaydet");
@@ -162,7 +172,9 @@ public class KisiPage {
 				int age = Integer.parseInt(Yas_textField.getText().toString());
 				String city = Il_List.getSelectedItem().toString();
 				String town = Ilce_List.getSelectedItem().toString();
-				// report
+				boolean report = false;
+				if(kanBagisFormu.contains(true)) 
+					report=false;
 				//String bloodType 
 				// plaka
 				//String bloodTypeNum 
@@ -170,8 +182,16 @@ public class KisiPage {
 				
 				// Bilgiler UPDATE edilecek veritabanýnda
 				//frame.dispose();
+				if(saglýkRaporunaGirildi==false) {
+					
+				}
 				try {
+					System.out.println(kanBagisFormu.toString());
 					Update(EmailKey,telephone,fname,lname,userPassword,age,city,town);
+					rapor=new Rapor();
+					if(saglýkRaporunaGirildi==true) {
+					rapor.Update(telephone, EmailKey, report, kanBagisFormu);
+					}
 					EmailKey="";
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -180,7 +200,7 @@ public class KisiPage {
 			
 			}
 		});
-		Kaydet_Button.setBounds(332, 231, 120, 23);
+		Kaydet_Button.setBounds(332, 261, 120, 23);
 		frame.getContentPane().add(Kaydet_Button);
 		
 		JButton Cikis_Button = new JButton("\u00C7\u0131k\u0131\u015F");
@@ -191,26 +211,46 @@ public class KisiPage {
 				frame.dispose();
 			}
 		});
-		Cikis_Button.setBounds(34, 231, 75, 23);
+		Cikis_Button.setBounds(10, 261, 75, 23);
 		frame.getContentPane().add(Cikis_Button);
 		
 		JLabel Sifre_Label = new JLabel("\u015Eifre:");
-		Sifre_Label.setBounds(44, 197, 59, 23);
+		Sifre_Label.setBounds(44, 178, 59, 23);
 		frame.getContentPane().add(Sifre_Label);
 		
 		Yas_textField = new JTextField();
 		Yas_textField.setColumns(10);
-		Yas_textField.setBounds(189, 164, 120, 23);
+		Yas_textField.setBounds(184, 145, 120, 23);
 		frame.getContentPane().add(Yas_textField);
 		
 		JLabel Yas_Label = new JLabel("Ya\u015F:");
-		Yas_Label.setBounds(44, 163, 59, 23);
+		Yas_Label.setBounds(44, 144, 59, 23);
 		frame.getContentPane().add(Yas_Label);
 		
 		Sifre_textField = new JTextField();
 		Sifre_textField.setColumns(10);
-		Sifre_textField.setBounds(189, 198, 120, 23);
+		Sifre_textField.setBounds(184, 179, 120, 23);
 		frame.getContentPane().add(Sifre_textField);
+		
+		JButton SaglikRapor_Button = new JButton("Sa\u011Fl\u0131k Raporu");
+		
+		SaglikRapor_Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReportPage reportPage=new ReportPage();
+				Rapor rapor = new Rapor();
+				try {
+					kanBagisFormu=reportPage.newScreen(rapor.Search(EmailKey));
+					System.out.println("KisiPage"+kanBagisFormu.toString());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				saglýkRaporunaGirildi=true;
+			}
+		});
+		SaglikRapor_Button.setBounds(44, 227, 135, 23);
+		frame.getContentPane().add(SaglikRapor_Button);
 	}
 	public void Update(String Email,String telephone,String fname,String lname,String userPassword,int age,String city,String town ) throws SQLException { 
 		

@@ -8,13 +8,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import sqlTable.Kýzýlay;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
-public class OtobusEklePage {
+import sqlTable.Kýzýlay;
 
+
+public class OtobusEklePage {
+	public Kýzýlay otobus = new Kýzýlay();
 	private JFrame frame;
 	private JTextField Ad_textField;
 	private JLabel Telefon_Label;
@@ -174,7 +181,7 @@ public class OtobusEklePage {
 			public void actionPerformed(ActionEvent e) {
 				
 				int flagNum = 3;
-				int telephone = Integer.parseInt(Telefon_textField.toString());
+				String telephone = Telefon_textField.getText().toString();
 				String email =Email_textField.getText().toString();
 				String fname = Ad_textField.getText().toString();
 				// mname
@@ -195,10 +202,19 @@ public class OtobusEklePage {
 				//if(ABNeg_RadioButton.isSelected()) bloodType += "ABRh- ";  
 				String  plaka = Plaka_textField.getText().toString();
 				//String bloodTypeNum = UniteSayisi_textField.toString();
-				String address = Adres_textField.toString();
+				String address = Adres_textField.getText().toString();
 				
 				// KanVERÝCÝ tablosuna INSERT edilecek.
 				// frame.dispose();
+				
+				try {
+					Insert(telephone,email,fname,userPassword,
+					   		  null,town,city,null, address, plaka);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				   		  
 			}
 		});
 		Kaydet_NewButton.setBounds(283, 228, 105, 23);
@@ -217,5 +233,8 @@ public class OtobusEklePage {
 		
 		
 	}
-
+	public void Insert( String telephone,String email,String fname,String pass,
+	   		   String bloodType,String town,String city,String bloodTypeNum,String address,String plate) throws SQLException {
+			   otobus = new Kýzýlay(fname,telephone,pass,town,city,plate,address,email,bloodType, bloodTypeNum);
+}
 }
