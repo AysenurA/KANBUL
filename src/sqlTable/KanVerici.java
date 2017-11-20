@@ -52,6 +52,8 @@ public class KanVerici {
         ArrayList<String> resultArray  =new ArrayList<String>();
         ArrayList<String> resultArrayHospital  =new ArrayList<String>();
         public ArrayList< String> KullaniciPage = new ArrayList<>();
+        public static ArrayList<Integer> TotalBloodNumber = new ArrayList<>();
+        public static ArrayList< String> TotalBloodInfo = new ArrayList<>();
         public static String  [][]  bloodTable = new String [8][8];
         BloodTypeResultPage text = new BloodTypeResultPage();
         
@@ -461,10 +463,28 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
        public void UpdateBus (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
        	Connection();
        	stmt = con.createStatement();
-       	System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
+       	//System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
        	ErrorPage window = new ErrorPage();
 		window.newScreen("Otobüs baþarýyla güncellendi");
+       }
+       public int findBestBus() throws SQLException {
+    	   Connection();
+    	   pst = con.prepareStatement("SELECT fname,plaka,city,town,bloodtypenum FROM \"kan_verici\" WHERE flagnum=3");
+	       rs = pst.executeQuery();
+	          while (rs.next()) {
+	        	  if(!rs.getString(5).contains("null")) {
+	        		  TotalBloodNumber.add(totalBloodUnit(rs.getString(5)));
+	        		  TotalBloodInfo.add(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4));
+	            }
+	          }
+	          int max=0;
+	          for(int i=0;i<TotalBloodNumber.size();i++) {
+	        	  if(max<TotalBloodNumber.get(i))
+	        		  max=TotalBloodNumber.get(i);
+	          }
+	          return max;
+	          
        }
        
         private void Insert(int flag) throws SQLException {
@@ -503,7 +523,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		
         		sql="INSERT INTO \"kan_verici\" VALUES"
             			+" ("+"'"+_flag+"' ,"+"'"+_TELEPHONE+"' ,"+"'"+_EMAIL+"',"+"'"+
-            			     _fname+"'," +""+null+","+""+null+","+""+_userPassword+","+null+","+null+",'"
+            			     _fname+"'," +""+null+","+""+null+","+"'"+_userPassword+"',"+null+","+null+",'"
             			      +_city+"', '"+_town+"',"+null+", '"+_bloodType+"','"+_PLATE+"',"+"'"+_bloodTypeNum+"',"+"'"+_address+"')";
         		System.out.println(sql);
         		stmt.executeUpdate(sql);
@@ -515,13 +535,20 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         	}
         	
         }
-        
+        public static int totalBloodUnit(String input) {
+        	 int sum = 0;  
+        	 String numbers[] = input.split("\\s+");   
+        	  for (String number : numbers) {  
+        	    Integer n = Integer.parseInt(number);
+        	    sum += n;     // sum the numbers
+        	  }
+        	    return sum;
+        	}
+    
 
         
         
 		public static void main(String [] args) throws SQLException {
            
-	
-
-			}
+		}
 }
