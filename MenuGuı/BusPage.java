@@ -14,6 +14,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import sqlTable.KanVerici;
+
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
@@ -334,34 +335,14 @@ public class BusPage {
 		il.setColumns(10);
 		il.setBounds(748, 218, 174, 20);
 		frame.getContentPane().add(il);
-		try {
-			String bestBusInfo=findBestBus();
-			String ad=bestBusInfo.substring(0,bestBusInfo.indexOf("$"));
-			otobusAdý.setText(ad);
-			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf("$")+1);
-			String plaka1=bestBusInfo.substring(0,bestBusInfo.indexOf("$"));
-			plaka.setText(plaka1);
-			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf("$")+1);
-			String il_ilce=bestBusInfo;
-			il.setText(il_ilce);
 		
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		}
 	
 		public void Update (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
 			KanVerici otobus = new KanVerici ();
 			otobus.UpdateBus(Email,city, town, bloodtype,plate, bloodtypenum,address);
 		}
-		public String findBestBus() throws SQLException {
-			     KanVerici bus = new KanVerici();
-			     
-			    String bestBus="";
-				return bestBus =bus.findBestBus();
-			     
-	        	  }
+	
 	          
 		
 	}
