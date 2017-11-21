@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import MenuGuý.BusPage;
 /*
  To do list :
  * Update / Delete methods
@@ -30,6 +34,12 @@ import java.util.logging.Logger;
 				public  PreparedStatement pst = null;
 				public ResultSet rs = null;	
 				KanVerici person = new KanVerici() ;
+			    public int columnCount;
+			    public ResultSetMetaData metadata =null ;
+				ArrayList<String> list=new ArrayList();
+				ArrayList<Integer> list2=new ArrayList();
+				String[] total=new String[8];
+				int colTot=0;
 				public Kýzýlay() {
 				   
 				}
@@ -131,7 +141,7 @@ import java.util.logging.Logger;
 						System.out.println("SÝSTEME EKLENDÝ FROM KIZILAY/HASTANE");
 					    }
 				}
-				public  void InsertBus(String name,String password,String plate,String town,String city,String address,String email,String bloodType,String bloodNum) throws SQLException {
+				public  void InsertBus(String name,String password,String town,String city,String plate,String address,String email,String bloodType,String bloodNum) throws SQLException {
 					Connection();
 				    String s=Search(email);
 					if(s!=null) {
@@ -149,7 +159,84 @@ import java.util.logging.Logger;
 					    }
 				}
 				
-				
+				public String[] findBestBus() throws SQLException {
+					Connection();
+					String g="";
+				       String s="";
+				       int total=0;
+				       int counter=0;
+					
+					       pst = con.prepareStatement("SELECT fname,plaka,town,city,bloodtypenum FROM \"kan_verici\" WHERE flagnum=3");
+					        rs = pst.executeQuery();
+					        metadata = rs.getMetaData();
+				            columnCount = metadata.getColumnCount();
+				            
+					        while (rs.next()) {
+					        	 for (int i = 1; i <= columnCount; i++) {
+					        		
+					        			
+					        			// System.out.print(s+" ");
+					        		 if(i<=columnCount-1) {
+					        			 s=rs.getString(i)+" ";
+					        			 g=g+s;
+					        		 }
+					        	   
+					        		 
+					        		if(i==columnCount) {
+					        			s=rs.getString(i)+" ";
+					        			 g=g+"*"+s;
+					        			 s="";
+					        		//	System.out.println();
+					        		//	System.out.println(g+" "+s);
+					        			list.add(g);
+					        			g="";
+					        		}
+					        		
+					       	}
+					        	  
+					  
+					
+				}
+					      //  System.out.println(g);
+					      return findBestBusHelper();
 				         
 				}
+				public String[] findBestBusHelper() throws SQLException {
+				  for(int i = 0 ; i<list.size() ;i++)
+				  {
+					  
+					  String type=list.get(i).substring(list.get(i).indexOf("*")+1);
+					  total=type.split(" ");
+					  for(int j = 0 ; j< total.length ;j++) {
+						  colTot=colTot+Integer.parseInt(total[j]);
+					  }
+					
+					  list.set(i,list.get(i).replace(list.get(i).substring(list.get(i).indexOf("*")+1),colTot+"" ));
+					  list2.add(i, colTot);
+					 // System.out.println(list.get(i));
+					  colTot=0;
+					 
+					 
+				  }
+					return findMax();
+				}
 				
+				public String [] findMax() throws SQLException {
+					int max=0;
+					int index=0;
+				
+					for(int i = 0 ; i<list2.size() ;i++) {
+						if(list2.get(i)>max)
+						{
+							max=list2.get(i);
+							index=i;
+						}
+					}
+					
+					  String [] a =new String [8];
+					  a=list.get(index).split(" ");
+					  
+					  
+					 return a;
+				}
+				}
