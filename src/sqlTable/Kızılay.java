@@ -50,7 +50,7 @@ import java.util.logging.Logger;
 					      		   _bloodType,_town,_city,_bloodTypeNum,_address);
 						}
 						else {
-							InsertBus(_name,_password,_town,_city,_plate,_address,_email,_bloodType,_bloodTypeNum);
+							InsertBus(_name,_password,_plate,_town,_city,_address,_email,_bloodType,_bloodTypeNum);
 							person =new KanVerici(3,_telephone,_email,_name,_password,
 						       		   _bloodType,_town,_city,_plate,_bloodTypeNum,_address);
 						}
@@ -87,8 +87,8 @@ import java.util.logging.Logger;
 					try {
 				
 						con = DriverManager.getConnection(
-								"jdbc:postgresql://localhost/KANBUL", "postgres",
-								"123456");
+								"jdbc:postgresql://localhost/Kanbul", "postgres",
+								"1q2w3e4r");
 				
 					} catch (SQLException e) {
 				

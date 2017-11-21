@@ -27,9 +27,6 @@ public class Rapor {
 	public ArrayList<Boolean> getKan_bagis_formu() {
 		return kan_bagis_form;
 	}
-	public void setKan_bagis_formu(ArrayList<Boolean> kan_bagis_formu) {
-		this.kan_bagis_form = kan_bagis_formu;
-	}
 	public String get_TELEPHONE() {
 		return _TELEPHONE;
 	}
@@ -133,7 +130,7 @@ public class Rapor {
 		else
 		{		          
 			System.out.println("RAPOR SÝSTEMDE YOK");
-		    }
+		}
 	}
 	public static void main(String[]args) throws SQLException {
 		Rapor a = new Rapor();

@@ -233,8 +233,8 @@ public class OtobusEklePage {
 		
 		
 	}
-	public void Insert( String telephone,String email,String fname,String pass,
+	public void Insert(String telephone,String email,String fname,String pass,
 	   		   String bloodType,String town,String city,String bloodTypeNum,String address,String plate) throws SQLException {
-			   otobus = new Kýzýlay(fname,telephone,pass,town,city,plate,address,email,bloodType, bloodTypeNum);
+			   otobus = new Kýzýlay(fname,telephone,pass,town,city,plate,email,address,bloodType, bloodTypeNum);
 }
 }

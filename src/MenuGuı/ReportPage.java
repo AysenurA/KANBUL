@@ -38,8 +38,9 @@ public class ReportPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReportPage window = new ReportPage();
-					window.frame.setVisible(true);
+				//	ReportPage window = new ReportPage();
+					//window.
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

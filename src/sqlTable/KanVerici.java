@@ -127,11 +127,11 @@ public class KanVerici {
 				try {
 
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KANBUL", "postgres",
-							"123456");
+							"jdbc:postgresql://localhost/Kanbul", "postgres",
+							"1q2w3e4r");
 					con2 = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KANBUL", "postgres",
-							"123456");
+							"jdbc:postgresql://localhost/Kanbul", "postgres",
+							"1q2w3e4r");
 				
 			} catch (SQLException e) {
 
@@ -304,7 +304,7 @@ public class KanVerici {
         	String result="" ;
         	Connection();
         
-        	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE bloodtype= '"+BloodType+"'");
+        	pst = con.prepareStatement("SELECT * FROM \"kan_verici\" WHERE bloodtype= '"+BloodType+"' and raport = 1");
 	        rs = pst.executeQuery();
 	        metadata = rs.getMetaData();
             columnCount = metadata.getColumnCount();
@@ -335,7 +335,7 @@ public class KanVerici {
         	Connection();
          //   System.out.println("girdin mi");
         	pst2 = con2.prepareStatement("SELECT * FROM kan_verici WHERE flagnum=2 and bloodtype like '%"+BloodType+"%'  and  fname like '%"+HospitalName+"%'" );
-	  //     System.out.println(pst2.toString());
+	    //  System.out.println(pst2.toString());
         	rs2 = pst2.executeQuery();
 	        metadata2 = rs2.getMetaData();
             columnCount2 = metadata2.getColumnCount();

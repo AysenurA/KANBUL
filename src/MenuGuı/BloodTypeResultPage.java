@@ -21,6 +21,7 @@ public class BloodTypeResultPage {
 	public  void newScreen(ArrayList<String> result,ArrayList<String> result2) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				String mes ="";
 				try {
 					BloodTypeResultPage window = new BloodTypeResultPage();
 					//System.out.println(result.toString());
@@ -28,9 +29,10 @@ public class BloodTypeResultPage {
 					String t="";
 					for(int i = 0 ; i<result.size();i++)
 					       s +="   "+ result.get(i)+"\n";
-					
-				           String mes ="UYARI : Hastaneden aldýðýnýz kan ünite sayýsý kadar kan baðýþý yaptýðýnýz takdirde bu hastanededen kan alabilirsiniz \n";
+					 if(result2.size()>2) {
+				           mes ="UYARI : Hastaneden aldýðýnýz kan ünite sayýsý kadar kan baðýþý yaptýðýnýz takdirde bu hastanededen kan alabilirsiniz \n";
 					       t ="   "+ result2.get(0)+"\n";
+					 }
 					//System.out.println(t);
 					
 					window.textPane.setText(s+mes+t);
