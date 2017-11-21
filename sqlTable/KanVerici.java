@@ -129,8 +129,8 @@ public class KanVerici {
 
 				try {
 
-					con = DriverManager.getConnection("jdbc:postgresql://localhost/KanBul", "postgres","Aybike_95");
-					con2 = DriverManager.getConnection("jdbc:postgresql://localhost/KanBul", "postgres","Aybike_95");
+					con = DriverManager.getConnection("jdbc:postgresql://localhost/Kanbul", "postgres","1q2w3e4r");
+					con2 = DriverManager.getConnection("jdbc:postgresql://localhost/Kanbul", "postgres","1q2w3e4r");
 
 				
 			} catch (SQLException e) {
@@ -451,7 +451,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
           	Connection();
           	stmt = con.createStatement();
           	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
-          	System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
+          	//System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
           	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"'  WHERE email='"+Email+"'");
         	
        }
