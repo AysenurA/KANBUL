@@ -130,11 +130,11 @@ public class KanVerici {
 				try {
 
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KanBul", "postgres",
-							"Aybike_95");
+							"jdbc:postgresql://localhost/Kanbul", "postgres",
+							"1q2w3e4r");
 					con2 = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KanBul", "postgres",
-							"Aybike_95");
+							"jdbc:postgresql://localhost/Kanbul", "postgres",
+							"1q2w3e4r");
 				
 			} catch (SQLException e) {
 
