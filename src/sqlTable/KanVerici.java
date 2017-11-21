@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import MenuGuý.BloodTypeResultPage;
-import MenuGuý.ErrorPage;
+
 
 public class KanVerici {
 	/*
@@ -48,13 +48,10 @@ public class KanVerici {
         public String sql=null;
         public int columnCount;
         public int columnCount2;
-        public int max=0;
         BloodTypeResultPage resultPage = new  BloodTypeResultPage();
         ArrayList<String> resultArray  =new ArrayList<String>();
         ArrayList<String> resultArrayHospital  =new ArrayList<String>();
         public ArrayList< String> KullaniciPage = new ArrayList<>();
-        public static ArrayList<Integer> TotalBloodNumber = new ArrayList<>();
-        public static ArrayList< String> TotalBloodInfo = new ArrayList<>();
         public static String  [][]  bloodTable = new String [8][8];
         BloodTypeResultPage text = new BloodTypeResultPage();
         
@@ -447,9 +444,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         	Connection();
         	stmt = con.createStatement();
         	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
-        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
-        	ErrorPage window = new ErrorPage();
-			window.newScreen("Kiþi baþarýyla güncellendi");
+        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");       	
        }
        
        public void UpdateHospital (String Email,String bloodtype,String bloodtypenum ) throws SQLException {
@@ -457,37 +452,15 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
           	stmt = con.createStatement();
           	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
           	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"'  WHERE email='"+Email+"'");
-          	ErrorPage window = new ErrorPage();
-			window.newScreen("Hastane baþarýyla güncellendi");
+        	
        }
        
        public void UpdateBus (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
        	Connection();
        	stmt = con.createStatement();
-       	//System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
+       	System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
-       	ErrorPage window = new ErrorPage();
-		window.newScreen("Otobüs baþarýyla güncellendi");
-       }
-       public String findBestBus() throws SQLException {
-    	   Connection();
-    	   pst = con.prepareStatement("SELECT fname,plaka,city,town,bloodtypenum FROM \"kan_verici\" WHERE flagnum=3");
-	       rs = pst.executeQuery();
-	          while (rs.next()) {
-	        	  if(!rs.getString(5).contains("null")) {
-	        		  TotalBloodNumber.add(totalBloodUnit(rs.getString(5)));
-	        		  TotalBloodInfo.add(rs.getString(1)+"$"+rs.getString(2)+"$"+rs.getString(3)+" "+rs.getString(4));
-	            }
-	          }
-	          int position=0;
-	          for(int i=0;i<TotalBloodNumber.size();i++) {
-	        	  if(max<TotalBloodNumber.get(i)) {
-	        		  max=TotalBloodNumber.get(i);
-	        		  position=i;
-	        	  }
-	          }
-	          return TotalBloodInfo.get(position);
-	          
+       	
        }
        
         private void Insert(int flag) throws SQLException {
@@ -503,8 +476,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
            //     System.out.println(sql);
                 stmt.executeUpdate(sql);
                 stmt.close();
-                ErrorPage window = new ErrorPage();
-    			window.newScreen("Kiþi baþarýyla eklendi");
+               
         	}
         	//
         	else if (flag==2)
@@ -518,8 +490,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		stmt.executeUpdate(sql);
         		
                 stmt.close();
-                ErrorPage window = new ErrorPage();
-    			window.newScreen("Hastane baþarýyla eklendi");
+                
         	}
         	
         	else {
@@ -532,26 +503,18 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		stmt.executeUpdate(sql);
         		
                 stmt.close();
-                ErrorPage window = new ErrorPage();
-    			window.newScreen("Kýzýlay otobüsü baþarýyla eklendi");
+
         		
         	}
         	
         }
-        public static int totalBloodUnit(String input) {
-        	 int sum = 0;  
-        	 String numbers[] = input.split("\\s+");   
-        	  for (String number : numbers) {  
-        	    Integer n = Integer.parseInt(number);
-        	    sum += n;     // sum the numbers
-        	  }
-        	    return sum;
-        	}
-    
+        
 
         
         
 		public static void main(String [] args) throws SQLException {
            
-		}
+	
+
+			}
 }
