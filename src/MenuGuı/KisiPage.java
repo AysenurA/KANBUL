@@ -14,6 +14,9 @@ import javax.swing.JTextField;
 
 import sqlTable.KanVerici;
 import sqlTable.Rapor;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class KisiPage {
 
@@ -88,7 +91,7 @@ public class KisiPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 478, 333);
+		frame.setBounds(100, 100, 574, 388);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -118,7 +121,7 @@ public class KisiPage {
 		frame.getContentPane().add(Il_List);
 		
 		
-		Ilce_List.setBounds(332, 114, 120, 20);
+		Ilce_List.setBounds(184, 137, 120, 20);
 		Ilce_List.addItem("Akyurt");
 		Ilce_List.addItem("Altýndað");
 		Ilce_List.addItem("Ayaþ");
@@ -193,6 +196,11 @@ public class KisiPage {
 					rapor.Update(telephone, EmailKey, report, kanBagisFormu);
 					}
 					EmailKey="";
+					
+					OnayPage window = new OnayPage();
+					window.newScreen("Kiþi baþarýyla güncellendi",true,false);
+					frame.dispose();
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -200,7 +208,7 @@ public class KisiPage {
 			
 			}
 		});
-		Kaydet_Button.setBounds(332, 261, 120, 23);
+		Kaydet_Button.setBounds(147, 316, 120, 23);
 		frame.getContentPane().add(Kaydet_Button);
 		
 		JButton Cikis_Button = new JButton("\u00C7\u0131k\u0131\u015F");
@@ -211,25 +219,25 @@ public class KisiPage {
 				frame.dispose();
 			}
 		});
-		Cikis_Button.setBounds(10, 261, 75, 23);
+		Cikis_Button.setBounds(30, 316, 75, 23);
 		frame.getContentPane().add(Cikis_Button);
 		
 		JLabel Sifre_Label = new JLabel("\u015Eifre:");
-		Sifre_Label.setBounds(44, 178, 59, 23);
+		Sifre_Label.setBounds(44, 193, 59, 23);
 		frame.getContentPane().add(Sifre_Label);
 		
 		Yas_textField = new JTextField();
 		Yas_textField.setColumns(10);
-		Yas_textField.setBounds(184, 145, 120, 23);
+		Yas_textField.setBounds(184, 163, 120, 23);
 		frame.getContentPane().add(Yas_textField);
 		
 		JLabel Yas_Label = new JLabel("Ya\u015F:");
-		Yas_Label.setBounds(44, 144, 59, 23);
+		Yas_Label.setBounds(44, 159, 59, 23);
 		frame.getContentPane().add(Yas_Label);
 		
 		Sifre_textField = new JTextField();
 		Sifre_textField.setColumns(10);
-		Sifre_textField.setBounds(184, 179, 120, 23);
+		Sifre_textField.setBounds(184, 193, 120, 23);
 		frame.getContentPane().add(Sifre_textField);
 		
 		JButton SaglikRapor_Button = new JButton("Sa\u011Fl\u0131k Raporu");
@@ -251,6 +259,20 @@ public class KisiPage {
 		});
 		SaglikRapor_Button.setBounds(44, 227, 135, 23);
 		frame.getContentPane().add(SaglikRapor_Button);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\User\\Desktop\\hand_heart_donate_icon_red-1.png"));
+		lblNewLabel.setBounds(267, -7, 316, 291);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("\u015Eimdi Kan Ver!");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton.setForeground(SystemColor.activeCaptionText);
+		btnNewButton.setBounds(332, 291, 172, 23);
+		frame.getContentPane().add(btnNewButton);
 	}
 	public void Update(String Email,String telephone,String fname,String lname,String userPassword,int age,String city,String town ) throws SQLException { 
 		

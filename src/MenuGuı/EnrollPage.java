@@ -193,7 +193,9 @@ public class EnrollPage {
 		Kaydet_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
+			try{
 			int flagNum = 1;
+			int age = 0;
 			String telephone = (TelNo_textField.getText().toString());
 			String email = Email_textField.getText().toString();
 			String fname = Ad_textField.getText().toString();
@@ -206,7 +208,17 @@ public class EnrollPage {
 			else
 				cinsiyet ='F';
 			// E ise MALE , K ise FEMALE check et.
-			int age = Integer.parseInt(Yas_textField.getText().toString());
+			
+			for (int i = 0; i < Yas_textField.getText().trim().toString().length(); i++) {
+		        char charAtYas = Yas_textField.getText().trim().toString().charAt(i);
+		        if (!Character.isDigit(charAtYas)) {
+					throw new SQLException();
+		            }
+		     }
+	         age = Integer.parseInt(Yas_textField.getText().trim().toString());
+			
+
+			//int age = Integer.parseInt(Yas_textField.getText().toString());
 			String city = Il_List.getSelectedItem().toString();
 			String town = Ilce_List.getSelectedItem().toString();
 			
@@ -227,26 +239,27 @@ public class EnrollPage {
 			int report_int=0;
 			if(report==true) 
 				report_int = 1;
-				
-		
-			
-			//  INSERT edilip veri tabanýna girilir üye olan kiþinin bilgileri
-			
-			
-			try {
-				if(person.Exist(email)) {
-					window.newScreen("Bu email adresi ile daha önce kayýt olundu.");
-				}
-				else
-				{
-					Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report_int,cinsiyet,age);
-					rapor=new Rapor();
-					if(raporuDoldurunuzGirildi==true)
-					rapor.Insert(telephone, email, report, kanBagisFormu);
+
+					if(hataKontrolu(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report_int,cinsiyet,age)==true){
+						
+						if(person.Exist(email)) {
+							window.newScreen("Bu email adresi ile daha önce kayýt olundu.");
+							System.out.println("Hata kontrolü");
+						}
+						else{
+						Insert(flagNum,telephone,email,fname,lname,userPassword,bloodType,town,city,report_int,cinsiyet,age);
+						OnayPage window = new OnayPage();
+			    		window.newScreen("Kiþi baþarýyla eklendi",true,false);
+			    		frame.dispose();
+						}
+					}
+					else
+						window.newScreen("Hatalý bilgi girdiniz/Lütfen bilgilerinizi kontrol ediniz...");
 					
-				}
+
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
+				window.newScreen("Hatalý bilgi girdiniz/Lütfen bilgilerinizi kontrol ediniz...");
 				e1.printStackTrace();
 			}
 
@@ -297,6 +310,55 @@ public class EnrollPage {
 			e1.getMessage();
 			e1.printStackTrace();
 		}
-	
-		}
 	}
+	
+		
+	
+	public boolean hataKontrolu(int flagNum, String telephone, String email, String fname, String lname, String userPassword, String bloodType, String town, String city, int report_int, char cinsiyet, int age){
+		
+		
+		if(!email.contains("@")&&(!email.contains(".com"))){
+			return false;
+		}
+		
+				for (int i = 0; i < fname.length(); i++) {
+			        char charAtFname = fname.charAt(i);
+			        if (!Character.isLetter(charAtFname)) {
+			        	System.out.println("1");
+			        	return false;
+			            }
+			    }
+				for (int i = 0; i < lname.length(); i++) {
+			        char charAtLname = lname.charAt(i);
+			        if (!Character.isLetter(charAtLname)) {
+			        	System.out.println("2");
+
+			        	return false;
+			            }
+			    }
+				
+				
+				for (int i = 0; i < telephone.length(); i++) {
+			        char charAtTel = telephone.charAt(i);
+			        if (!Character.isDigit(charAtTel)) {
+			        	System.out.println("3");
+			        	return false;
+			            }
+			    	}
+				
+				if(telephone.length()>10){
+					return false;
+				}
+				
+				if(!(age<=110)){
+		        	System.out.println("4");
+
+						 return false;
+						 }		
+			
+		return true;
+	
+	}
+}
+	
+		

@@ -132,6 +132,7 @@ public class KanArayanPage {
 			try {
 				 ArrayList <String> result =new ArrayList <String>();
 				 System.out.println(result.toString());
+				 	test.Insert(TelNo_textField.getText(), Ad_textField.getText(),null, Soyad_textField.getText(), bloodType, city, town);
 				      test.Search(bloodType,hospitalName);
 			
 				 

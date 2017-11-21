@@ -3,12 +3,7 @@ package MenuGuý;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -19,11 +14,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import sqlTable.KanVerici;
-import sqlTable.Kýzýlay;
-
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
-
 
 public class BusPage {
 
@@ -43,17 +35,15 @@ public class BusPage {
 	JComboBox<String> OtobusunBulunduguIlce_List;
 	JComboBox<String> OtobusunBulunduguIl_List;
 	public static String otobusEmail="";
-	public Connection con = null;
- 	public PreparedStatement pst = null;
-    public ResultSet rs = null;
-    public Statement stmt = null;
-    public String ayinOtobusuAdý="";
-    public String ayinOtobusuPlaka="";
-    
-    public String ayinOtobusuIl="";
-	public BusPage window;
+	private JLabel lblNewLabel;
+	private JLabel ayýnOtobüsAdý_label;
+	private JTextField otobusAdý;
+	private JLabel lblNewLabel_1;
+	private JTextField plaka;
+	private JLabel ayýnOtobüsüPlaka_Label;
+	private JLabel ayinOtobüsililçe_Label;
+	private JTextField il;
 
-    public Kýzýlay bus=new Kýzýlay();
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +51,8 @@ public class BusPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					window = new BusPage();
+					
+					BusPage window = new BusPage();
 					otobusEmail = kullaniciAdi;
 					
 					window.KizilayOtobusAdi_textField.setText(kullaniciPage.get(0));
@@ -120,29 +111,21 @@ public class BusPage {
 			}
 		});
 	}
+
 	/**
-	 * @wbp.parser.constructor
+	 * Create the application.
 	 */
 	public BusPage() {
 		initialize();
-
 	}
-	public BusPage(String adý,String plaka,String il) {
-		ayinOtobusuAdý =adý;
-		ayinOtobusuPlaka=plaka;
-		ayinOtobusuIl=il;
-		System.out.println(ayinOtobusuAdý);
-		System.out.println(ayinOtobusuPlaka);
-		System.out.println(ayinOtobusuIl);
 
-	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\red_bus_logo.jpg"));
-		frame.setBounds(100, 100, 492, 340);
+		frame.setBounds(100, 100, 948, 405);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -296,48 +279,89 @@ public class BusPage {
 				String bloodTypeNum = UniteSayisi_textField.getText().toString();
 				
 				String address = OtobusunBulunduguAdres_textField.getText().toString();
-			
-			
 				
 				// Bilgiler UPDATE edilecek veritabanýnda
 				
 				 try {
-					Update(otobusEmail,city, town, bloodType,plaka, bloodTypeNum,address);
-					otobusEmail="";
+						Update(otobusEmail,city, town, bloodType,plaka, bloodTypeNum,address);
+						otobusEmail="";
+						OnayPage window = new OnayPage();
+						window.newScreen("Otobüs baþarýyla güncellendi",true,false);
+						frame.dispose();					
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				 
-				
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			}
-			
-			
-			
 		});
 		Kaydet_Button.setBounds(296, 244, 139, 23);
 		frame.getContentPane().add(Kaydet_Button);
 		
-		JButton btnAynOtobsnGster = new JButton("Ay\u0131n Otob\u00FCs\u00FCn\u00FC G\u00F6ster");
-		btnAynOtobsnGster.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				AyinOtobusu ayinOtobusu = new AyinOtobusu();
-				try {
-					ayinOtobusu.newScreen(bus.findBestBus());
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		btnAynOtobsnGster.setBounds(269, 210, 169, 23);
-		frame.getContentPane().add(btnAynOtobsnGster);
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\User\\Desktop\\otobus.png"));
+		lblNewLabel.setBounds(674, 12, 139, 92);
+		frame.getContentPane().add(lblNewLabel);
+		
+		ayýnOtobüsAdý_label = new JLabel("K\u0131z\u0131lay Otob\u00FCs\u00FC Ad\u0131:");
+		ayýnOtobüsAdý_label.setBounds(565, 145, 113, 14);
+		frame.getContentPane().add(ayýnOtobüsAdý_label);
+		
+		otobusAdý = new JTextField();
+		otobusAdý.setColumns(10);
+		otobusAdý.setBounds(749, 146, 173, 20);
+		
+		frame.getContentPane().add(otobusAdý);
+		
+		lblNewLabel_1 = new JLabel("En \u00C7ok Kan Toplayan Otob\u00FCs");
+		lblNewLabel_1.setBounds(664, 119, 199, 14);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		plaka = new JTextField();
+		plaka.setColumns(10);
+		plaka.setBounds(748, 178, 174, 20);
+		
+		frame.getContentPane().add(plaka);
+		
+		ayýnOtobüsüPlaka_Label = new JLabel("Plaka:");
+		ayýnOtobüsüPlaka_Label.setBounds(565, 181, 113, 14);
+		frame.getContentPane().add(ayýnOtobüsüPlaka_Label);
+		
+		ayinOtobüsililçe_Label = new JLabel("Otob\u00FCs\u00FCn Bulundu\u011Fu \u0130l/\u0130l\u00E7e :");
+		ayinOtobüsililçe_Label.setBounds(565, 220, 156, 14);
+		frame.getContentPane().add(ayinOtobüsililçe_Label);
+		
+		il = new JTextField();
+		il.setColumns(10);
+		il.setBounds(748, 218, 174, 20);
+		frame.getContentPane().add(il);
+		try {
+			String bestBusInfo=findBestBus();
+			String ad=bestBusInfo.substring(0,bestBusInfo.indexOf("$"));
+			otobusAdý.setText(ad);
+			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf("$")+1);
+			String plaka1=bestBusInfo.substring(0,bestBusInfo.indexOf("$"));
+			plaka.setText(plaka1);
+			bestBusInfo=bestBusInfo.substring(bestBusInfo.indexOf("$")+1);
+			String il_ilce=bestBusInfo;
+			il.setText(il_ilce);
+		
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		}
 	
 		public void Update (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
 			KanVerici otobus = new KanVerici ();
 			otobus.UpdateBus(Email,city, town, bloodtype,plate, bloodtypenum,address);
 		}
+		public String findBestBus() throws SQLException {
+			     KanVerici bus = new KanVerici();
+			     
+			    String bestBus="";
+				return bestBus =bus.findBestBus();
+			     
+	        	  }
+	          
+		
 	}

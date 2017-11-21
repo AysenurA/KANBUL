@@ -26,6 +26,20 @@ public class KizilayPage {
 		});
 	}
 
+
+	public  void newScreen() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					KizilayPage window = new KizilayPage();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	
 	public  void newScreen(String kullaniciAdi, String password) {
 		EventQueue.invokeLater(new Runnable() {

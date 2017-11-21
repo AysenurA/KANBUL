@@ -182,17 +182,19 @@ public class HastaneEklePage {
 			public void actionPerformed(ActionEvent e) {
 				
 				int flagNum = 2;
-				String telephone =HastaneTelEkle_textField.getText().toString();
-				String email = HastaneEmailEkle_textField.getText().toString();
-				String fname = Ad_textField.getText().toString();
+				String telephone="notelephone",email="", fname="", userPassword="";
+				 telephone =HastaneTelEkle_textField.getText().toString();
+				 email = HastaneEmailEkle_textField.getText().toString();
+				 fname = Ad_textField.getText().toString();
 				// mname
-				String userPassword = HastaneSifreEkle_textField.getText().toString();
+				 userPassword = HastaneSifreEkle_textField.getText().toString();
 				// sex
 				// age
+				
 				String city = HastaneAdresiIlEkle_List.getSelectedItem().toString();
 				String town = HastaneAdresiIlceEkle_List.getSelectedItem().toString();
 				// report
-				String bloodType="";
+				String bloodType="type secilmedi";
 				if(ZeroPos_RadioButton.isSelected()) bloodType += "0Rh+ ";  
 				if(ZeroNeg_RadioButton.isSelected()) bloodType += "0Rh- ";  
 				if(APos_RadioButton.isSelected()) bloodType += "ARh+ ";  
@@ -202,20 +204,24 @@ public class HastaneEklePage {
 				if(ABPos_RadioButton.isSelected()) bloodType += "ABRh+ ";  
 				if(ABNeg_RadioButton.isSelected()) bloodType += "ABRh- ";  
 				// plaka
-				String bloodTypeNum = UniteSayisi_textField.getText().toString();
-				String address = HastaneAdresEkle_textField.getText().toString();
+				String bloodTypeNum="bloodsecilmedi";
+				bloodTypeNum = UniteSayisi_textField.getText().toString();
+				String address="secilmedi";
+				address = HastaneAdresEkle_textField.getText().toString();
 				
 				System.out.println(flagNum+" "+telephone+" "+email+" "+fname+" "+userPassword+" "+bloodType+" "+town+" "+city+" "+bloodTypeNum+" "+address);
 				
 				
 				try {
-				
-					  
-					  Insert(telephone,email, fname, userPassword, bloodType,town,city,bloodTypeNum,address,null) ;
+
+					  Insert(telephone,email, fname, userPassword, bloodType,town,city,bloodTypeNum,address,null);
+					  OnayPage window = new OnayPage();
+		    		  window.newScreen("Hastane baþarýyla eklendi",false,true);
+		    		  frame.dispose();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					System.out.println(" OKOKOKO");
-					//e1.printStackTrace();
+					e1.printStackTrace();
 				}
 				/*
 				 *   public KanVerici ( int flag,String telephone,String email,String fname,String pass,
