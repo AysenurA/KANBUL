@@ -69,8 +69,8 @@ To do list :
 			private  void Connection() {
 				try {
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/Kanbul", "postgres",
-							"1q2w3e4r");
+							"jdbc:postgresql://localhost/KanBul", "postgres",
+							"Aybike_95");
 					
 			
 			
@@ -98,7 +98,7 @@ To do list :
 			   return s;
 			}
 			
-			private void Insert(String tel,String fname,String mname,String lname,String bloodT,String hospitalC,String hospitalT) throws SQLException {
+			public void Insert(String tel,String fname,String mname,String lname,String bloodT,String hospitalC,String hospitalT) throws SQLException {
 				Connection();
 			    String s=Exist(tel);
 				if(s!=null) {
@@ -108,8 +108,7 @@ To do list :
 				{		          
 					Statement st = con.createStatement(); 
 					st.executeUpdate("INSERT INTO kan_arayan " + 
-				                "VALUES ('"+tel+"'"+", 'Aysenur','Nur','Avcý','0Rh+','yenimahalle', 'Ankara')"); 
-				  
+			                "VALUES ('"+tel+"',"+"'"+fname+"', '"+mname+"', '"+lname+"', '"+bloodT+"', '"+hospitalC+"','"+hospitalT+"')");
 				    }
 				
 				/* If s/he want to be member 
@@ -155,6 +154,17 @@ To do list :
 			//	insert("289751321");
 			//	insert("215498727");
 			//	delete("451248513");
+//				String tel ="7878";
+//				String fname="aysenur";
+//				String mname="nur";
+//				String lname="avcý";
+//				String bloodT="0Rh+";
+//				String hospitalC="Ankara";
+//				String hospitalT="Yenimahalle";
+			//	System.out.println("INSERT INTO kan_arayan " + 
+				//                "VALUES ('"+tel+"',"+"'"+fname+"', '"+mname+"', '"+lname+"', '"+bloodT+"', '"+hospitalC+"','"+hospitalT+"')");
+			KanArayan a=new KanArayan();
+//			a.Insert(tel, fname, mname, lname, bloodT, hospitalC, hospitalT);
 			}
 			
 			}
