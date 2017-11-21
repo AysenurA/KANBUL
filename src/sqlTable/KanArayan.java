@@ -69,8 +69,8 @@ To do list :
 			private  void Connection() {
 				try {
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KANBUL", "postgres",
-							"123456");
+							"jdbc:postgresql://localhost/KanBul", "postgres",
+							"677192");
 					
 			
 			

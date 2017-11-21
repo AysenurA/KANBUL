@@ -106,7 +106,7 @@ public class DonorPage {
 		Giris_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					// Kullanýcý adý ve sifre alýnarak veritabanýna bir query atýlacak 
-					// Kýzýlay Kiþi Hastane ve Otobus ýcýn ayrý mý atýlacak yoksa hepsi içib bir tane mi ?				
+					// Kýzýlay Kiþi Hastane ve Otobus ýcýn ayrý mý atýlacak yoksa hepsi içib bir tane mi ?
 					String kullaniciAdi = KullaniciAdi_textField.getText(); 
 					String sifre = Sifre_textField.getText(); 
 					// Eger query sonucu kisi kayýtlýysa

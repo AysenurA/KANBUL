@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import MenuGuý.BloodTypeResultPage;
-import MenuGuý.ErrorPage;
+import MenuGuý.OnayPage;
 
 public class KanVerici {
 	/*
@@ -127,11 +127,11 @@ public class KanVerici {
 				try {
 
 					con = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KANBUL", "postgres",
-							"123456");
+							"jdbc:postgresql://localhost/KanBul", "postgres",
+							"677192");
 					con2 = DriverManager.getConnection(
-							"jdbc:postgresql://localhost/KANBUL", "postgres",
-							"123456");
+							"jdbc:postgresql://localhost/KanBul", "postgres",
+							"677192");
 				
 			} catch (SQLException e) {
 
@@ -444,9 +444,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         	Connection();
         	stmt = con.createStatement();
         	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
-        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
-        	ErrorPage window = new ErrorPage();
-			window.newScreen("Kiþi baþarýyla güncellendi");
+        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");       	
        }
        
        public void UpdateHospital (String Email,String bloodtype,String bloodtypenum ) throws SQLException {
@@ -454,8 +452,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
           	stmt = con.createStatement();
           	//System.out.println("UPDATE \"kan_verici\" SET  telephone="+"'"+telephone+"',"+"fname='"+fname+"', lname='"+lname+"', userpassword='"+userPassword+"',  age='"+age+"', city='"+city+"', town='"+town+"'"+" WHERE email='"+Email+"'");
           	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"'  WHERE email='"+Email+"'");
-          	ErrorPage window = new ErrorPage();
-			window.newScreen("Hastane baþarýyla güncellendi");
+        	
        }
        
        public void UpdateBus (String Email,String city,String town,String bloodtype,String plate,String bloodtypenum,String address) throws SQLException {
@@ -463,8 +460,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
        	stmt = con.createStatement();
        	System.out.println("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
        	stmt.executeUpdate("UPDATE \"kan_verici\" SET  bloodtype="+"'"+bloodtype+"',"+"bloodtypenum='"+bloodtypenum+"' ,plaka='"+plate+"', city='"+ city+"', town='"+town+"', address='"+address+"'  WHERE email='"+Email+"'");
-       	ErrorPage window = new ErrorPage();
-		window.newScreen("Otobüs baþarýyla güncellendi");
+       	
        }
        
         private void Insert(int flag) throws SQLException {
@@ -480,8 +476,7 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
            //     System.out.println(sql);
                 stmt.executeUpdate(sql);
                 stmt.close();
-                ErrorPage window = new ErrorPage();
-    			window.newScreen("Kiþi baþarýyla eklendi");
+               
         	}
         	//
         	else if (flag==2)
@@ -495,22 +490,20 @@ public  ArrayList<String> SearchEnter(String Email,String password) throws SQLEx
         		stmt.executeUpdate(sql);
         		
                 stmt.close();
-                ErrorPage window = new ErrorPage();
-    			window.newScreen("Hastane baþarýyla eklendi");
+                
         	}
         	
         	else {
         		
         		sql="INSERT INTO \"kan_verici\" VALUES"
             			+" ("+"'"+_flag+"' ,"+"'"+_TELEPHONE+"' ,"+"'"+_EMAIL+"',"+"'"+
-            			     _fname+"'," +""+null+","+""+null+","+""+_userPassword+","+null+","+null+",'"
+            			     _fname+"'," +""+null+","+""+null+","+"'"+_userPassword+"',"+null+","+null+",'"
             			      +_city+"', '"+_town+"',"+null+", '"+_bloodType+"','"+_PLATE+"',"+"'"+_bloodTypeNum+"',"+"'"+_address+"')";
         		System.out.println(sql);
         		stmt.executeUpdate(sql);
         		
                 stmt.close();
-                ErrorPage window = new ErrorPage();
-    			window.newScreen("Kýzýlay otobüsü baþarýyla eklendi");
+
         		
         	}
         	

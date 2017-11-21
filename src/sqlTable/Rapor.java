@@ -52,8 +52,8 @@ public class Rapor {
 		try {
 	
 			con = DriverManager.getConnection(
-					"jdbc:postgresql://localhost/Kanbul", "postgres",
-					"1q2w3e4r");
+					"jdbc:postgresql://localhost/KanBul", "postgres",
+					"677192");
 			
 	
 	

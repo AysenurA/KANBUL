@@ -58,12 +58,33 @@ public class BusPage {
 					window.KizilayOtobusAdi_textField.setText(kullaniciPage.get(0));
 					window.OtobusunBulunduguIl_List.setSelectedItem(kullaniciPage.get(1));
 					window.OtobusunBulunduguIlce_List.setSelectedItem(kullaniciPage.get(2));
-					String bloodType = kullaniciPage.get(3);
-					window.Plaka_textField.setText(kullaniciPage.get(4));
-					window.UniteSayisi_textField.setText(kullaniciPage.get(5));
-					window.OtobusunBulunduguAdres_textField.setText(kullaniciPage.get(6));
+					String bloodType="";
+					window.Plaka_textField.setText("");
+					window.UniteSayisi_textField.setText("");
+					window.OtobusunBulunduguAdres_textField.setText("");
+					if(kullaniciPage.get(3)!=null){
+						 bloodType = kullaniciPage.get(3);
+					}
+					if(kullaniciPage.get(4)!=null){
+						window.Plaka_textField.setText(kullaniciPage.get(4));
+					}
 					
+					if(kullaniciPage.get(5)!=null){
+						window.UniteSayisi_textField.setText(kullaniciPage.get(5));
+					}
 					
+					if(kullaniciPage.get(6)!=null){
+						window.OtobusunBulunduguAdres_textField.setText(kullaniciPage.get(6));
+					}
+
+					
+					//window.Plaka_textField.setText(kullaniciPage.get(4));
+					
+					//window.UniteSayisi_textField.setText(kullaniciPage.get(5));
+					
+					//window.OtobusunBulunduguAdres_textField.setText(kullaniciPage.get(6));
+					
+					if(!(bloodType==null)){
 					if(bloodType.contains("0Rh+"))
 						window.ZeroPos_RadioButton.setSelected(true);
 					if(bloodType.contains("0Rh-"))
@@ -80,6 +101,8 @@ public class BusPage {
 						window.ABPos_RadioButton.setSelected(true);
 					if(bloodType.contains("ABRh-"))
 						window.ABNeg_RadioButton.setSelected(true);
+					}
+			
 					
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -262,7 +285,10 @@ public class BusPage {
 				 try {
 						Update(otobusEmail,city, town, bloodType,plaka, bloodTypeNum,address);
 						otobusEmail="";
-					} catch (SQLException e1) {
+						OnayPage window = new OnayPage();
+						window.newScreen("Otobüs baþarýyla güncellendi",true,false);
+						frame.dispose();					
+				} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}

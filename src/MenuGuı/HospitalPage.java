@@ -40,8 +40,15 @@ public class HospitalPage {
 					hastaneEmail = kullaniciAdi;
 					HospitalPage window = new HospitalPage();
 					window.HastaneAdi_textField.setText(kullaniciPage.get(0));
-					window.UniteSayisi_textField.setText(kullaniciPage.get(2));
+					if(!(kullaniciPage.get(2)==(null))){
+					    window.UniteSayisi_textField.setText(kullaniciPage.get(2));
+					}
+					else
+						window.UniteSayisi_textField.setText("");
 					String bloodType = kullaniciPage.get(1);
+					
+					if(!(bloodType==(null))){
+						
 					
 					if(bloodType.contains("0Rh+"))
 						window.ZeroPos_radioButton.setSelected(true);
@@ -59,7 +66,12 @@ public class HospitalPage {
 						window.ABPos_radioButton.setSelected(true);
 					if(bloodType.contains("ABRh-"))
 						window.ABNeg_radioButton.setSelected(true);
-			
+					
+					}
+					else{
+						bloodType="";
+					}
+					
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -144,7 +156,8 @@ public class HospitalPage {
 				
 				int flagNum = 2;
 				String fname = HastaneAdi_textField.getText().toString();
-				String bloodType ="";				
+				String bloodType ="";
+			
 				if(ZeroPos_radioButton.isSelected()) bloodType += "0Rh+ ";  
 				if(ZeroNeg_radioButton.isSelected()) bloodType += "0Rh- ";  
 				if(APos_radioButton.isSelected()) bloodType += "ARh+ ";  
@@ -162,6 +175,11 @@ public class HospitalPage {
 				 try {
 					Update(hastaneEmail,bloodType,bloodTypeNum);
 					 hastaneEmail="";
+					 
+					 OnayPage window = new OnayPage();
+					window.newScreen("Hastane baþarýyla güncellendi",true,false);
+					frame.dispose();
+
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

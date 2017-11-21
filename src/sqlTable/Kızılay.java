@@ -87,8 +87,8 @@ import java.util.logging.Logger;
 					try {
 				
 						con = DriverManager.getConnection(
-								"jdbc:postgresql://localhost/KANBUL", "postgres",
-								"123456");
+								"jdbc:postgresql://localhost/KanBul", "postgres",
+								"677192");
 				
 					} catch (SQLException e) {
 				
@@ -128,14 +128,14 @@ import java.util.logging.Logger;
 				        			     city+"'," +"'"+null+"',"+"'"+address+"',"+"'"+email+"', '"+bloodType+"', '"+bloodNum
 				        			     +"')");			                
 						//System.out.println(st.toString());
-						System.out.println("SÝSTEME EKLENDÝ FRROM KIZILAY/HASTANE");
+						System.out.println("SÝSTEME EKLENDÝ FROM KIZILAY/HASTANE");
 					    }
 				}
 				public  void InsertBus(String name,String password,String plate,String town,String city,String address,String email,String bloodType,String bloodNum) throws SQLException {
 					Connection();
 				    String s=Search(email);
 					if(s!=null) {
-						System.out.println("The hospital is already exist");
+						System.out.println("The bus is already exist");
 					}
 					else
 					{		          
@@ -145,7 +145,7 @@ import java.util.logging.Logger;
 				        			     city+"'," +"'"+plate+"',"+"'"+address+"',"+"'"+email+"', '"+bloodType+"', '"+bloodNum
 				        			     +"')");			                
 						//System.out.println(st.toString());
-						System.out.println("SÝSTEME EKLENDÝ FRROM KIZILAY/HASTANE");
+						System.out.println("SÝSTEME EKLENDÝ FROM KIZILAY/BUS");
 					    }
 				}
 				
