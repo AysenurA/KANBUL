@@ -181,11 +181,12 @@ public class OtobusEklePage {
 			public void actionPerformed(ActionEvent e) {
 				
 				int flagNum = 3;
-				String telephone = Telefon_textField.getText().toString();
-				String email =Email_textField.getText().toString();
-				String fname = Ad_textField.getText().toString();
+				String telephone="", email="", fname="", userPassword="", plaka="",address="";
+				 telephone = Telefon_textField.getText().toString();
+				 email =Email_textField.getText().toString();
+				 fname = Ad_textField.getText().toString();
 				// mname
-				String userPassword = Sifre_textField.getText().toString();
+				 userPassword = Sifre_textField.getText().toString();
 				// sex
 				// age
 				String city = Il_List.getSelectedItem().toString();
@@ -200,16 +201,18 @@ public class OtobusEklePage {
 				//if(BNeg_RadioButton.isSelected()) bloodType += "BRh- ";  
 				//if(ABPos_RadioButton.isSelected()) bloodType += "ABRh+ ";  
 				//if(ABNeg_RadioButton.isSelected()) bloodType += "ABRh- ";  
-				String  plaka = Plaka_textField.getText().toString();
+				  plaka = Plaka_textField.getText().toString();
 				//String bloodTypeNum = UniteSayisi_textField.toString();
-				String address = Adres_textField.getText().toString();
+				 address = Adres_textField.getText().toString();
 				
 				// KanVERÝCÝ tablosuna INSERT edilecek.
 				// frame.dispose();
 				
 				try {
-					Insert(telephone,email,fname,userPassword,
-					   		  null,town,city,null, address, plaka);
+					Insert(telephone,email,fname,userPassword,null,town,city,null, address, plaka);
+	                OnayPage window = new OnayPage();
+	                window.newScreen("Kýzýlay otobüsü baþarýyla eklendi",false,true);
+	                frame.dispose();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

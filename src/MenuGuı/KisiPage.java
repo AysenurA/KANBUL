@@ -196,6 +196,11 @@ public class KisiPage {
 					rapor.Update(telephone, EmailKey, report, kanBagisFormu);
 					}
 					EmailKey="";
+					
+					OnayPage window = new OnayPage();
+					window.newScreen("Kiþi baþarýyla güncellendi",true,false);
+					frame.dispose();
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
